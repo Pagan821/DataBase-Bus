@@ -1,0 +1,11 @@
+C:\Users\User\source\repos\Учебная практика\База Данных Городских Автобусов\bin\Debug\База Данных Городских Автобусов.exe.config
+C:\Users\User\source\repos\Учебная практика\База Данных Городских Автобусов\bin\Debug\База Данных Городских Автобусов.exe
+C:\Users\User\source\repos\Учебная практика\База Данных Городских Автобусов\bin\Debug\База Данных Городских Автобусов.pdb
+C:\Users\User\source\repos\Учебная практика\База Данных Городских Автобусов\obj\Debug\База Данных Городских Автобусов.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\Учебная практика\База Данных Городских Автобусов\obj\Debug\База_Данных_Городских_Автобусов.Properties.Resources.resources
+C:\Users\User\source\repos\Учебная практика\База Данных Городских Автобусов\obj\Debug\База Данных Городских Автобусов.csproj.GenerateResource.cache
+C:\Users\User\source\repos\Учебная практика\База Данных Городских Автобусов\obj\Debug\База Данных Городских Автобусов.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\Учебная практика\База Данных Городских Автобусов\obj\Debug\База Данных Городских Автобусов.exe
+C:\Users\User\source\repos\Учебная практика\База Данных Городских Автобусов\obj\Debug\База Данных Городских Автобусов.pdb
+C:\Users\User\source\repos\Учебная практика\База Данных Городских Автобусов\obj\Debug\База Данных Городских Автобусов.exe.config
+C:\Users\User\source\repos\Учебная практика\База Данных Городских Автобусов\obj\Debug\База_Данных_Городских_Автобусов.MainDatabaseForm.resources
