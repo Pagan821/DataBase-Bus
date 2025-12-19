@@ -1,0 +1,236 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\routeeditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|solutionrelative:routeeditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|c:\\users\\user\\source\\repos\\\u0443\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0431\u0430\u0437\u0430 \u0434\u0430\u043D\u043D\u044B\u0445 \u0433\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0430\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\routeeditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|solutionrelative:routeeditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\ticketeditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|solutionrelative:ticketeditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\ticketeditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|solutionrelative:ticketeditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\useeditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|solutionrelative:useeditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\scheduleeditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|solutionrelative:scheduleeditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\buseditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|solutionrelative:buseditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\buseditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|solutionrelative:buseditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\useeditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|solutionrelative:useeditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\scheduleeditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C1664316-0CB9-450B-A193-068CB168A939}|\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432.csproj|solutionrelative:scheduleeditform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RouteEditForm.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\RouteEditForm.cs",
+              "RelativeDocumentMoniker": "RouteEditForm.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\RouteEditForm.cs",
+              "RelativeToolTip": "RouteEditForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T09:14:33.469Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RouteEditForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\RouteEditForm.cs",
+              "RelativeDocumentMoniker": "RouteEditForm.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\RouteEditForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "RouteEditForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T09:14:22.96Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TicketEditForm.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\TicketEditForm.cs",
+              "RelativeDocumentMoniker": "TicketEditForm.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\TicketEditForm.cs",
+              "RelativeToolTip": "TicketEditForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T08:57:36.703Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TicketEditForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\TicketEditForm.cs",
+              "RelativeDocumentMoniker": "TicketEditForm.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\TicketEditForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "TicketEditForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T08:57:34.471Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UseEditForm.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\UseEditForm.cs",
+              "RelativeDocumentMoniker": "UseEditForm.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\UseEditForm.cs",
+              "RelativeToolTip": "UseEditForm.cs",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAcwIgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T08:36:43.726Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "UseEditForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\UseEditForm.cs",
+              "RelativeDocumentMoniker": "UseEditForm.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\UseEditForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "UseEditForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T08:36:27.97Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ScheduleEditForm.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\ScheduleEditForm.cs",
+              "RelativeDocumentMoniker": "ScheduleEditForm.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\ScheduleEditForm.cs",
+              "RelativeToolTip": "ScheduleEditForm.cs",
+              "ViewState": "AgIAAHQAAAAAAAAAAAAuwKUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T08:15:58.985Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ScheduleEditForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\ScheduleEditForm.cs",
+              "RelativeDocumentMoniker": "ScheduleEditForm.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\ScheduleEditForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "ScheduleEditForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T08:15:56.645Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "BusEditForm.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\BusEditForm.cs",
+              "RelativeDocumentMoniker": "BusEditForm.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\BusEditForm.cs",
+              "RelativeToolTip": "BusEditForm.cs",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAmwIQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T08:09:04.341Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "BusEditForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\BusEditForm.cs",
+              "RelativeDocumentMoniker": "BusEditForm.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\BusEditForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "BusEditForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T08:09:01.996Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-17T11:48:39.957Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\\u0411\u0430\u0437\u0430 \u0414\u0430\u043D\u043D\u044B\u0445 \u0413\u043E\u0440\u043E\u0434\u0441\u043A\u0438\u0445 \u0410\u0432\u0442\u043E\u0431\u0443\u0441\u043E\u0432\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AgIAACcDAAAAAAAAAAAcwHEDAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-17T11:53:33.222Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

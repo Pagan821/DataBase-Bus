@@ -22,7 +22,6 @@ namespace База_Данных_Городских_Автобусов
         {
             InitializeComponent();
 
-            // Подписываемся на события
             btnSave.Click += BtnSave_Click;
             btnCancel.Click += BtnCancel_Click;
             txtDuration.KeyPress += TxtDuration_KeyPress;
@@ -30,7 +29,6 @@ namespace База_Данных_Городских_Автобусов
             txtDuration.TextChanged += TxtDuration_TextChanged;
             txtDurationMinutes.TextChanged += TxtDurationMinutes_TextChanged;
 
-            // Подписываемся на события для плейсхолдеров
             txtDistance.Enter += txtDistance_Enter;
             txtDistance.Leave += txtDistance_Leave;
             txtDuration.Enter += txtDuration_Enter;
@@ -134,7 +132,6 @@ namespace База_Данных_Городских_Автобусов
 
         private void TxtDurationMinutes_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Разрешаем только цифры и Backspace
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
@@ -143,7 +140,6 @@ namespace База_Данных_Городских_Автобусов
 
         private void TxtDuration_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Разрешаем цифры, двоеточие и Backspace
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ':')
             {
                 e.Handled = true;
@@ -152,7 +148,6 @@ namespace База_Данных_Городских_Автобусов
 
         private void TxtDuration_TextChanged(object sender, EventArgs e)
         {
-            // Автоматический расчет минут при вводе времени в формате ЧЧ:ММ
             if (txtDuration.Text.Contains(":"))
             {
                 string[] parts = txtDuration.Text.Split(':');
