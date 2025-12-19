@@ -77,6 +77,7 @@
     <Compile Include="BusEditForm.Designer.cs">
       <DependentUpon>BusEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataBase.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
