@@ -18,6 +18,8 @@ namespace База_Данных_Городских_Автобусов
         public string Distance { get; private set; }
         public bool IsActive { get; private set; }
 
+        public string Duration { get; private set; }
+        public string DurationMinutes { get; private set; }
         public RouteEditForm()
         {
             InitializeComponent();
@@ -69,6 +71,10 @@ namespace База_Данных_Городских_Автобусов
                 ArrivalCity = txtArrivalCity.Text.Trim();
                 Distance = txtDistance.Text.Trim();
                 IsActive = chkActive.Checked;
+
+                // Добавьте эти строки
+                Duration = txtDuration.Text.Trim();
+                DurationMinutes = txtDurationMinutes.Text.Trim();
 
                 this.DialogResult = DialogResult.OK;
                 this.Close();

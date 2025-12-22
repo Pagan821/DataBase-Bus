@@ -2,10 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace База_Данных_Городских_Автобусов
 {
@@ -14,7 +17,6 @@ namespace База_Данных_Городских_Автобусов
         static string connectionString = "Data Source=City-Bus.db";
 
         // ==================== CREATE ====================
-        // Метод для создания всех таблиц
         public static void CreateAllTables()
         {
             CreateTableUsers();
@@ -24,7 +26,6 @@ namespace База_Данных_Городских_Автобусов
             CreateTableTickets();
         }
 
-        // Создание таблицы пользователей
         private static void CreateTableUsers()
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -42,21 +43,20 @@ namespace База_Данных_Городских_Автобусов
                                    is_active BOOLEAN DEFAULT 1,
                                    created_date DATETIME DEFAULT CURRENT_TIMESTAMP)";
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Таблица пользователей создана успешно!", "Успех",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка создания таблицы пользователей: {ex.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        // Создание таблицы маршрутов
         private static void CreateTableRoutes()
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -77,21 +77,20 @@ namespace База_Данных_Городских_Автобусов
                         created_date DATETIME DEFAULT CURRENT_TIMESTAMP
                     )";
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Таблица маршрутов создана успешно!", "Успех",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка создания таблицы маршрутов: {ex.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        // Создание таблицы автобусов
         private static void CreateTableBuses()
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -112,21 +111,20 @@ namespace База_Данных_Городских_Автобусов
                         created_date DATETIME DEFAULT CURRENT_TIMESTAMP
                     )";
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Таблица автобусов создана успешно!", "Успех",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка создания таблицы автобусов: {ex.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        // Создание таблицы расписания
         private static void CreateTableSchedule()
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -150,21 +148,20 @@ namespace База_Данных_Городских_Автобусов
                         FOREIGN KEY (bus_id) REFERENCES Buses(bus_id)
                     )";
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Таблица расписания создана успешно!", "Успех",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка создания таблицы расписания: {ex.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        // Создание таблицы билетов
         private static void CreateTableTickets()
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -188,22 +185,281 @@ namespace База_Данных_Городских_Автобусов
                         UNIQUE(schedule_id, seat_number)
                     )";
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Таблица билетов создана успешно!", "Успех",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка создания таблицы билетов: {ex.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
+        // ==================== SELECT ====================
+        public static DataTable GetAllUsers()
+        {
+            DataTable dt = new DataTable();
+            SqliteConnection conn = new SqliteConnection(connectionString);
+
+            try
+            {
+                conn.Open();
+                SqliteCommand cmd = new SqliteCommand("SELECT * FROM Users ORDER BY user_id", conn);
+
+                using (SqliteDataReader reader = cmd.ExecuteReader())
+                {
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        dt.Columns.Add(reader.GetName(i));
+                    }
+
+                    while (reader.Read())
+                    {
+                        DataRow row = dt.NewRow();
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            row[i] = reader.GetValue(i);
+                        }
+                        dt.Rows.Add(row);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка получения пользователей: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+            return dt;
+        }
+
+        public static DataTable GetAllRoutes()
+        {
+            DataTable dt = new DataTable();
+            SqliteConnection conn = new SqliteConnection(connectionString);
+
+            try
+            {
+                conn.Open();
+                SqliteCommand cmd = new SqliteCommand("SELECT * FROM Routes ORDER BY route_id", conn);
+
+                using (SqliteDataReader reader = cmd.ExecuteReader())
+                {
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        dt.Columns.Add(reader.GetName(i));
+                    }
+
+                    while (reader.Read())
+                    {
+                        DataRow row = dt.NewRow();
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            row[i] = reader.GetValue(i);
+                        }
+                        dt.Rows.Add(row);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка получения маршрутов: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+            return dt;
+        }
+
+        public static DataTable GetAllBuses()
+        {
+            DataTable dt = new DataTable();
+            SqliteConnection conn = new SqliteConnection(connectionString);
+
+            try
+            {
+                conn.Open();
+                SqliteCommand cmd = new SqliteCommand("SELECT * FROM Buses ORDER BY bus_id", conn);
+
+                using (SqliteDataReader reader = cmd.ExecuteReader())
+                {
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        dt.Columns.Add(reader.GetName(i));
+                    }
+
+                    while (reader.Read())
+                    {
+                        DataRow row = dt.NewRow();
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            row[i] = reader.GetValue(i);
+                        }
+                        dt.Rows.Add(row);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка получения автобусов: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+            return dt;
+        }
+
+        public static DataTable GetAllSchedules()
+        {
+            DataTable dt = new DataTable();
+            SqliteConnection conn = new SqliteConnection(connectionString);
+
+            try
+            {
+                conn.Open();
+                SqliteCommand cmd = new SqliteCommand(
+                    @"SELECT s.*, r.route_number, r.departure_city, r.arrival_city, 
+                    b.plate_number, b.brand, b.model 
+                    FROM Schedule s 
+                    JOIN Routes r ON s.route_id = r.route_id 
+                    JOIN Buses b ON s.bus_id = b.bus_id 
+                    ORDER BY s.departure_time", conn);
+
+                using (SqliteDataReader reader = cmd.ExecuteReader())
+                {
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        dt.Columns.Add(reader.GetName(i));
+                    }
+
+                    while (reader.Read())
+                    {
+                        DataRow row = dt.NewRow();
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            row[i] = reader.GetValue(i);
+                        }
+                        dt.Rows.Add(row);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка получения расписания: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+            return dt;
+        }
+
+        public static DataTable GetAllTickets()
+        {
+            DataTable dt = new DataTable();
+            SqliteConnection conn = new SqliteConnection(connectionString);
+
+            try
+            {
+                conn.Open();
+                SqliteCommand cmd = new SqliteCommand(
+                    @"SELECT t.*, s.departure_time, r.route_number, r.departure_city, r.arrival_city 
+                    FROM Tickets t 
+                    JOIN Schedule s ON t.schedule_id = s.schedule_id 
+                    JOIN Routes r ON s.route_id = r.route_id 
+                    ORDER BY t.sale_date DESC", conn);
+
+                using (SqliteDataReader reader = cmd.ExecuteReader())
+                {
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        dt.Columns.Add(reader.GetName(i));
+                    }
+
+                    while (reader.Read())
+                    {
+                        DataRow row = dt.NewRow();
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            row[i] = reader.GetValue(i);
+                        }
+                        dt.Rows.Add(row);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка получения билетов: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+            return dt;
+        }
+
+        public static DataRow GetUserById(int userId)
+        {
+            DataTable dt = new DataTable();
+            SqliteConnection conn = new SqliteConnection(connectionString);
+
+            try
+            {
+                conn.Open();
+                SqliteCommand cmd = new SqliteCommand("SELECT * FROM Users WHERE user_id = @userId", conn);
+                cmd.Parameters.AddWithValue("@userId", userId);
+
+                using (SqliteDataReader reader = cmd.ExecuteReader())
+                {
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        dt.Columns.Add(reader.GetName(i));
+                    }
+
+                    if (reader.Read())
+                    {
+                        DataRow row = dt.NewRow();
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            row[i] = reader.GetValue(i);
+                        }
+                        dt.Rows.Add(row);
+                        return dt.Rows[0];
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка поиска пользователя: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+            return null;
+        }
+
         // ==================== INSERT ====================
-        // Вставка нового пользователя
         public static bool InsertUser(string username, string passwordHash, string fullName, string role, bool isActive)
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -231,11 +487,11 @@ namespace База_Данных_Городских_Автобусов
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        // Вставка нового маршрута
         public static bool InsertRoute(string routeNumber, string departureCity, string arrivalCity,
                                        string distance, int durationMinutes, bool isActive)
         {
@@ -267,11 +523,11 @@ namespace База_Данных_Городских_Автобусов
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        // Вставка нового автобуса
         public static bool InsertBus(string plateNumber, string brand, string model,
                                      int capacity, int year, bool isActive)
         {
@@ -301,11 +557,11 @@ namespace База_Данных_Городских_Автобусов
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        // Вставка нового рейса в расписание
         public static bool InsertSchedule(int routeId, int busId, DateTime departureTime,
                                           DateTime arrivalTime, decimal price, string status, int availableSeats)
         {
@@ -338,11 +594,11 @@ namespace База_Данных_Городских_Автобусов
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        // Вставка нового билета
         public static bool InsertTicket(string ticketNumber, int scheduleId, string passengerName,
                                         int seatNumber, decimal price, DateTime saleDate, bool isReturned)
         {
@@ -375,312 +631,12 @@ namespace База_Данных_Городских_Автобусов
             }
             finally
             {
-                conn.Close();
-            }
-        }
-
-        // ==================== SELECT ====================
-        // Получение всех пользователей
-        public static DataTable GetAllUsers()
-        {
-            DataTable dt = new DataTable();
-            SqliteConnection conn = new SqliteConnection(connectionString);
-
-            try
-            {
-                conn.Open();
-                SqliteCommand cmd = new SqliteCommand("SELECT * FROM Users ORDER BY user_id", conn);
-
-                using (SqliteDataReader reader = cmd.ExecuteReader())
-                {
-                    // Создаем колонки
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        dt.Columns.Add(reader.GetName(i));
-                    }
-
-                    // Заполняем строки
-                    while (reader.Read())
-                    {
-                        DataRow row = dt.NewRow();
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            row[i] = reader.GetValue(i);
-                        }
-                        dt.Rows.Add(row);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка получения пользователей: {ex.Message}", "Ошибка",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return dt;
-        }
-
-        // Получение всех маршрутов
-        public static DataTable GetAllRoutes()
-        {
-            DataTable dt = new DataTable();
-            SqliteConnection conn = new SqliteConnection(connectionString);
-
-            try
-            {
-                conn.Open();
-                SqliteCommand cmd = new SqliteCommand("SELECT * FROM Routes ORDER BY route_id", conn);
-
-                using (SqliteDataReader reader = cmd.ExecuteReader())
-                {
-                    // Создаем колонки
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        dt.Columns.Add(reader.GetName(i));
-                    }
-
-                    // Заполняем строки
-                    while (reader.Read())
-                    {
-                        DataRow row = dt.NewRow();
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            row[i] = reader.GetValue(i);
-                        }
-                        dt.Rows.Add(row);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка получения маршрутов: {ex.Message}", "Ошибка",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return dt;
-        }
-
-        // Получение всех автобусов
-        public static DataTable GetAllBuses()
-        {
-            DataTable dt = new DataTable();
-            SqliteConnection conn = new SqliteConnection(connectionString);
-
-            try
-            {
-                conn.Open();
-                SqliteCommand cmd = new SqliteCommand("SELECT * FROM Buses ORDER BY bus_id", conn);
-
-                using (SqliteDataReader reader = cmd.ExecuteReader())
-                {
-                    // Создаем колонки
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        dt.Columns.Add(reader.GetName(i));
-                    }
-
-                    // Заполняем строки
-                    while (reader.Read())
-                    {
-                        DataRow row = dt.NewRow();
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            row[i] = reader.GetValue(i);
-                        }
-                        dt.Rows.Add(row);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка получения автобусов: {ex.Message}", "Ошибка",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return dt;
-        }
-
-        // Получение всего расписания
-        public static DataTable GetAllSchedules()
-        {
-            DataTable dt = new DataTable();
-            SqliteConnection conn = new SqliteConnection(connectionString);
-
-            try
-            {
-                conn.Open();
-                SqliteCommand cmd = new SqliteCommand(
-                    @"SELECT s.*, r.route_number, r.departure_city, r.arrival_city, 
-                    b.plate_number, b.brand, b.model 
-                    FROM Schedule s 
-                    JOIN Routes r ON s.route_id = r.route_id 
-                    JOIN Buses b ON s.bus_id = b.bus_id 
-                    ORDER BY s.departure_time", conn);
-
-                using (SqliteDataReader reader = cmd.ExecuteReader())
-                {
-                    // Создаем колонки
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        dt.Columns.Add(reader.GetName(i));
-                    }
-
-                    // Заполняем строки
-                    while (reader.Read())
-                    {
-                        DataRow row = dt.NewRow();
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            row[i] = reader.GetValue(i);
-                        }
-                        dt.Rows.Add(row);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка получения расписания: {ex.Message}", "Ошибка",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return dt;
-        }
-
-        // Получение всех билетов
-        public static DataTable GetAllTickets()
-        {
-            DataTable dt = new DataTable();
-            SqliteConnection conn = new SqliteConnection(connectionString);
-
-            try
-            {
-                conn.Open();
-                SqliteCommand cmd = new SqliteCommand(
-                    @"SELECT t.*, s.departure_time, r.route_number, r.departure_city, r.arrival_city 
-                    FROM Tickets t 
-                    JOIN Schedule s ON t.schedule_id = s.schedule_id 
-                    JOIN Routes r ON s.route_id = r.route_id 
-                    ORDER BY t.sale_date DESC", conn);
-
-                using (SqliteDataReader reader = cmd.ExecuteReader())
-                {
-                    // Создаем колонки
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        dt.Columns.Add(reader.GetName(i));
-                    }
-
-                    // Заполняем строки
-                    while (reader.Read())
-                    {
-                        DataRow row = dt.NewRow();
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            row[i] = reader.GetValue(i);
-                        }
-                        dt.Rows.Add(row);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка получения билетов: {ex.Message}", "Ошибка",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return dt;
-        }
-
-        // Поиск пользователя по ID
-        public static DataRow GetUserById(int userId)
-        {
-            DataTable dt = new DataTable();
-            SqliteConnection conn = new SqliteConnection(connectionString);
-
-            try
-            {
-                conn.Open();
-                SqliteCommand cmd = new SqliteCommand("SELECT * FROM Users WHERE user_id = @userId", conn);
-                cmd.Parameters.AddWithValue("@userId", userId);
-
-                using (SqliteDataReader reader = cmd.ExecuteReader())
-                {
-                    // Создаем колонки
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        dt.Columns.Add(reader.GetName(i));
-                    }
-
-                    // Заполняем строки
-                    if (reader.Read())
-                    {
-                        DataRow row = dt.NewRow();
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            row[i] = reader.GetValue(i);
-                        }
-                        dt.Rows.Add(row);
-                        return dt.Rows[0];
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка поиска пользователя: {ex.Message}", "Ошибка",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return null;
-        }
-
-        // Проверка логина и пароля
-        public static bool CheckLogin(string username, string passwordHash)
-        {
-            SqliteConnection conn = new SqliteConnection(connectionString);
-            try
-            {
-                conn.Open();
-                SqliteCommand cmd = new SqliteCommand(
-                    "SELECT COUNT(*) FROM Users WHERE username = @username AND password_hash = @passwordHash AND is_active = 1",
-                    conn);
-                cmd.Parameters.AddWithValue("@username", username);
-                cmd.Parameters.AddWithValue("@passwordHash", passwordHash);
-
-                int count = Convert.ToInt32(cmd.ExecuteScalar());
-                return count > 0;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка проверки логина: {ex.Message}", "Ошибка",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            finally
-            {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
         // ==================== UPDATE ====================
-        // Обновление пользователя
         public static bool UpdateUser(int userId, string username, string passwordHash,
                                      string fullName, string role, bool isActive)
         {
@@ -715,11 +671,11 @@ namespace База_Данных_Городских_Автобусов
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        // Обновление маршрута
         public static bool UpdateRoute(int routeId, string routeNumber, string departureCity,
                                        string arrivalCity, string distance, int durationMinutes, bool isActive)
         {
@@ -756,11 +712,11 @@ namespace База_Данных_Городских_Автобусов
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        // Обновление автобуса
         public static bool UpdateBus(int busId, string plateNumber, string brand, string model,
                                      int capacity, int year, bool isActive)
         {
@@ -797,11 +753,11 @@ namespace База_Данных_Городских_Автобусов
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        // Обновление расписания
         public static bool UpdateSchedule(int scheduleId, int routeId, int busId, DateTime departureTime,
                                           DateTime arrivalTime, decimal price, string status, int availableSeats)
         {
@@ -840,11 +796,11 @@ namespace База_Данных_Городских_Автобусов
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        // Обновление билета
         public static bool UpdateTicket(int ticketId, string ticketNumber, int scheduleId, string passengerName,
                                         int seatNumber, decimal price, DateTime saleDate, bool isReturned)
         {
@@ -883,12 +839,12 @@ namespace База_Данных_Городских_Автобусов
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
         // ==================== DELETE ====================
-        // Удаление пользователя
         public static bool DeleteUser(int userId)
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -909,11 +865,11 @@ namespace База_Данных_Городских_Автобусов
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        // Удаление маршрута
         public static bool DeleteRoute(int routeId)
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -934,11 +890,11 @@ namespace База_Данных_Городских_Автобусов
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        // Удаление автобуса
         public static bool DeleteBus(int busId)
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -959,11 +915,11 @@ namespace База_Данных_Городских_Автобусов
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        // Удаление рейса
         public static bool DeleteSchedule(int scheduleId)
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -984,11 +940,11 @@ namespace База_Данных_Городских_Автобусов
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        // Удаление билета
         public static bool DeleteTicket(int ticketId)
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -1009,12 +965,12 @@ namespace База_Данных_Городских_Автобусов
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
         // ==================== ДОПОЛНИТЕЛЬНЫЕ МЕТОДЫ ====================
-        // Метод для создания индексов
         public static void CreateIndexes()
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -1061,9 +1017,6 @@ namespace База_Данных_Городских_Автобусов
 
                 cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_tickets_returned ON Tickets(is_returned)";
                 cmd.ExecuteNonQuery();
-
-                MessageBox.Show("Индексы созданы успешно!", "Успех",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -1072,11 +1025,11 @@ namespace База_Данных_Городских_Автобусов
             }
             finally
             {
-                conn.Close();
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
             }
         }
 
-        // Метод для вставки тестовых данных
         public static void InsertTestData()
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -1131,9 +1084,6 @@ namespace База_Данных_Городских_Автобусов
                     ('TKT002', 1, 'Петров Петр Петрович', 16, 2500.00, DATETIME('now', '-2 days'), 0),
                     ('TKT003', 2, 'Сидоров Сидор Сидорович', 8, 1800.00, DATETIME('now', '-3 days'), 1)";
                 cmd.ExecuteNonQuery();
-
-                MessageBox.Show("Тестовые данные успешно добавлены!", "Успех",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -1142,43 +1092,69 @@ namespace База_Данных_Городских_Автобусов
             }
             finally
             {
-                conn.Close();
-            }
-        }
-
-        // Метод для проверки соединения с базой данных
-        public static bool TestConnection()
-        {
-            SqliteConnection conn = null;
-            try
-            {
-                conn = new SqliteConnection(connectionString);
-                conn.Open();
-                conn.Close();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-            finally
-            {
-                if (conn != null)
+                if (conn.State == ConnectionState.Open)
                     conn.Close();
             }
         }
 
-        // Метод для инициализации всей базы данных
+        public static bool CheckLogin(string username, string passwordHash)
+        {
+            SqliteConnection conn = new SqliteConnection(connectionString);
+            try
+            {
+                conn.Open();
+                SqliteCommand cmd = new SqliteCommand(
+                    "SELECT COUNT(*) FROM Users WHERE username = @username AND password_hash = @passwordHash AND is_active = 1",
+                    conn);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@passwordHash", passwordHash);
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка проверки логина: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
+
+        public static string HashPassword(string password)
+        {
+            using (var sha256 = System.Security.Cryptography.SHA256.Create())
+            {
+                var bytes = Encoding.UTF8.GetBytes(password);
+                var hash = sha256.ComputeHash(bytes);
+
+                StringBuilder sb = new StringBuilder();
+                foreach (byte b in hash)
+                {
+                    sb.Append(b.ToString("x2"));
+                }
+                return sb.ToString();
+            }
+        }
+
         public static void InitializeDatabase()
         {
             try
             {
-                // Проверяем соединение
-                if (!TestConnection())
+                string dbPath = Path.Combine(Application.StartupPath, "City-Bus.db");
+
+                if (!File.Exists(dbPath))
                 {
-                    MessageBox.Show("Не удалось подключиться к базе данных", "Ошибка",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    File.WriteAllBytes(dbPath, new byte[0]);
+
+                    using (var conn = new SqliteConnection(connectionString))
+                    {
+                        conn.Open();
+                    }
                 }
 
                 CreateAllTables();
@@ -1197,7 +1173,6 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        // Метод для получения соединения с базой данных
         public static SqliteConnection GetConnection()
         {
             return new SqliteConnection(connectionString);

@@ -1,0 +1,37 @@
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\ru\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\ru\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\ru\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\BUS-Test.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\BUS-Test.pdb
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\BUS-Class.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\Microsoft.Data.Sqlite.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\SQLitePCLRaw.core.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\System.Memory.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\System.Buffers.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\BUS-Class.pdb
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\Microsoft.Data.Sqlite.xml
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\System.Memory.xml
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\System.Buffers.xml
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\obj\Debug\BUS-Test.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\obj\Debug\BUS-Test.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\obj\Debug\BUS-Test.csproj.Up2Date
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\obj\Debug\BUS-Test.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\obj\Debug\BUS-Test.pdb
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\База Данных Городских Автобусов.exe
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\База Данных Городских Автобусов.pdb
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\База Данных Городских Автобусов.exe.config

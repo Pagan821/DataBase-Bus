@@ -25,6 +25,9 @@ namespace База_Данных_Городских_Автобусов
         {
             InitializeComponent();
 
+            // Инициализируем базу данных
+            InitializeDatabase();
+
             InitializeDataTables();
 
             LoadInitialData();
@@ -32,8 +35,15 @@ namespace База_Данных_Городских_Автобусов
             SetupEventHandlers();
         }
 
+        private void InitializeDatabase()
+        {
+            // Инициализируем базу данных при запуске программы
+            DataBase.InitializeDatabase();
+        }
+
         private void InitializeDataTables()
         {
+            // Структура таблиц остается прежней
             // Маршруты
             routesData.Columns.Add("ID", typeof(int));
             routesData.Columns.Add("Номер", typeof(string));
@@ -80,45 +90,97 @@ namespace База_Данных_Городских_Автобусов
 
         private void LoadInitialData()
         {
-            // Заполняем тестовыми данными
-            LoadTestData();
+            LoadDataFromDatabase();
 
-            // Показываем первую вкладку
             ShowRoutes();
         }
 
-        private void LoadTestData()
+        private void LoadDataFromDatabase()
         {
-            // Тестовые маршруты
-            routesData.Rows.Add(1, "101", "Москва", "Санкт-Петербург", "700 км", true);
-            routesData.Rows.Add(2, "202", "Казань", "Уфа", "450 км", true);
-            routesData.Rows.Add(3, "305", "Новосибирск", "Томск", "250 км", false);
+            // Загружаем данные из базы данных
+            routesData.Clear();
+            busesData.Clear();
+            scheduleData.Clear();
+            ticketsData.Clear();
+            usersData.Clear();
 
-            // Тестовые автобусы
-            busesData.Rows.Add(1, "А123ВС77", "Mercedes", "Tourismo", 50, 2022, true);
-            busesData.Rows.Add(2, "В456ОР78", "ПАЗ", "Vector Next", 35, 2021, true);
-            busesData.Rows.Add(3, "С789ТУ99", "ЛиАЗ", "5292", 45, 2020, false);
+            // Загружаем маршруты
+            DataTable routesDb = DataBase.GetAllRoutes();
+            foreach (DataRow row in routesDb.Rows)
+            {
+                routesData.Rows.Add(
+                    row["route_id"],
+                    row["route_number"],
+                    row["departure_city"],
+                    row["arrival_city"],
+                    row["distance"],
+                    Convert.ToInt32(row["is_active"]) == 1
+                );
+            }
 
-            // Тестовое расписание
-            scheduleData.Rows.Add(1, "101 Москва-СПб", "А123ВС77",
-                DateTime.Now.AddDays(1), DateTime.Now.AddDays(1).AddHours(10),
-                2500.00m, "Планируется");
-            scheduleData.Rows.Add(2, "202 Казань-Уфа", "В456ОР78",
-                DateTime.Now.AddDays(2), DateTime.Now.AddDays(2).AddHours(6),
-                1800.00m, "Планируется");
+            // Загружаем автобусы
+            DataTable busesDb = DataBase.GetAllBuses();
+            foreach (DataRow row in busesDb.Rows)
+            {
+                busesData.Rows.Add(
+                    row["bus_id"],
+                    row["plate_number"],
+                    row["brand"],
+                    row["model"],
+                    row["capacity"],
+                    row["year"] == DBNull.Value ? 0 : row["year"],
+                    Convert.ToInt32(row["is_active"]) == 1
+                );
+            }
 
-            // Тестовые билеты
-            ticketsData.Rows.Add(1, "TKT001", "101 Москва-СПб", "Иванов И.И.",
-                15, 2500.00m, DateTime.Now.AddDays(-1), false);
-            ticketsData.Rows.Add(2, "TKT002", "101 Москва-СПб", "Петров П.П.",
-                16, 2500.00m, DateTime.Now.AddDays(-2), false);
-            ticketsData.Rows.Add(3, "TKT003", "202 Казань-Уфа", "Сидоров С.С.",
-                8, 1800.00m, DateTime.Now.AddDays(-3), true);
+            // Загружаем расписание
+            DataTable scheduleDb = DataBase.GetAllSchedules();
+            foreach (DataRow row in scheduleDb.Rows)
+            {
+                string routeInfo = $"{row["route_number"]} {row["departure_city"]}-{row["arrival_city"]}";
+                string busInfo = $"{row["plate_number"]} ({row["brand"]} {row["model"]})";
 
-            // Тестовые пользователи
-            usersData.Rows.Add(1, "admin", "Администратор Системы", "Администратор", true);
-            usersData.Rows.Add(2, "dispatcher", "Диспетчер Иванов", "Диспетчер", true);
-            usersData.Rows.Add(3, "cashier1", "Кассир Петрова", "Кассир", true);
+                scheduleData.Rows.Add(
+                    row["schedule_id"],
+                    routeInfo,
+                    busInfo,
+                    row["departure_time"],
+                    row["arrival_time"],
+                    row["price"],
+                    row["status"]
+                );
+            }
+
+            // Загружаем билеты
+            DataTable ticketsDb = DataBase.GetAllTickets();
+            foreach (DataRow row in ticketsDb.Rows)
+            {
+                string routeInfo = $"{row["route_number"]} {row["departure_city"]}-{row["arrival_city"]}";
+
+                ticketsData.Rows.Add(
+                    row["ticket_id"],
+                    row["ticket_number"],
+                    routeInfo,
+                    row["passenger_name"],
+                    row["seat_number"],
+                    row["price"],
+                    row["sale_date"],
+                    Convert.ToInt32(row["is_returned"]) == 1
+                );
+            }
+
+            // Загружаем пользователей
+            DataTable usersDb = DataBase.GetAllUsers();
+            foreach (DataRow row in usersDb.Rows)
+            {
+                usersData.Rows.Add(
+                    row["user_id"],
+                    row["username"],
+                    row["full_name"],
+                    row["role"],
+                    Convert.ToInt32(row["is_active"]) == 1
+                );
+            }
         }
 
         private void SetupEventHandlers()
@@ -136,7 +198,6 @@ namespace База_Данных_Городских_Автобусов
             SetupTicketHandlers();
             SetupUserHandlers();
         }
-
 
         // ==================== ОБЩИЕ МЕТОДЫ ====================
 
@@ -305,18 +366,35 @@ namespace База_Данных_Городских_Автобусов
             var form = new RouteEditForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                // В реальности здесь добавление в БД
-                routesData.Rows.Add(
-                    routesData.Rows.Count + 1,
+                // Добавляем в базу данных
+                int durationMinutes = 0;
+                if (!string.IsNullOrEmpty(form.DurationMinutes))
+                {
+                    int.TryParse(form.DurationMinutes, out durationMinutes);
+                }
+
+                bool success = DataBase.InsertRoute(
                     form.RouteNumber,
                     form.DepartureCity,
                     form.ArrivalCity,
                     form.Distance,
-                    form.IsActive);
+                    durationMinutes,
+                    form.IsActive
+                );
 
-                ShowRoutes();
-                MessageBox.Show("Маршрут добавлен", "Успех",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (success)
+                {
+                    // Обновляем данные из базы
+                    LoadDataFromDatabase();
+                    ShowRoutes();
+                    MessageBox.Show("Маршрут добавлен", "Успех",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при добавлении маршрута", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -343,14 +421,35 @@ namespace База_Данных_Городских_Автобусов
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                // В реальности здесь обновление в БД
-                selectedRow.Cells["Номер"].Value = form.RouteNumber;
-                selectedRow.Cells["Отправление"].Value = form.DepartureCity;
-                selectedRow.Cells["Прибытие"].Value = form.ArrivalCity;
-                selectedRow.Cells["Расстояние"].Value = form.Distance;
-                selectedRow.Cells["Активен"].Value = form.IsActive;
+                // Обновляем в базе данных
+                int durationMinutes = 0;
+                if (!string.IsNullOrEmpty(form.DurationMinutes))
+                {
+                    int.TryParse(form.DurationMinutes, out durationMinutes);
+                }
 
-                MessageBox.Show("Маршрут изменен", "Успех");
+                bool success = DataBase.UpdateRoute(
+                    routeId,
+                    form.RouteNumber,
+                    form.DepartureCity,
+                    form.ArrivalCity,
+                    form.Distance,
+                    durationMinutes,
+                    form.IsActive
+                );
+
+                if (success)
+                {
+                    // Обновляем данные из базы
+                    LoadDataFromDatabase();
+                    ShowRoutes();
+                    MessageBox.Show("Маршрут изменен", "Успех");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при обновлении маршрута", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -371,11 +470,21 @@ namespace База_Данных_Городских_Автобусов
                 var selectedRow = dataGridViewRoutes.SelectedRows[0];
                 int routeId = (int)selectedRow.Cells["ID"].Value;
 
-                // В реальности здесь удаление из БД
-                routesData.Rows.RemoveAt(selectedRow.Index);
+                // Удаляем из базы данных
+                bool success = DataBase.DeleteRoute(routeId);
 
-                ShowRoutes();
-                MessageBox.Show("Маршрут удален", "Успех");
+                if (success)
+                {
+                    // Обновляем данные из базы
+                    LoadDataFromDatabase();
+                    ShowRoutes();
+                    MessageBox.Show("Маршрут удален", "Успех");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при удалении маршрута", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -414,18 +523,28 @@ namespace База_Данных_Городских_Автобусов
             var form = new BusEditForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                // В реальности здесь добавление в БД
-                busesData.Rows.Add(
-                    busesData.Rows.Count + 1,
+                // Добавляем в базу данных
+                bool success = DataBase.InsertBus(
                     form.PlateNumber,
                     form.Brand,
                     form.Model,
                     form.Capacity,
                     form.Year,
-                    form.IsActive);
+                    form.IsActive
+                );
 
-                ShowBuses();
-                MessageBox.Show("Автобус добавлен", "Успех");
+                if (success)
+                {
+                    // Обновляем данные из базы
+                    LoadDataFromDatabase();
+                    ShowBuses();
+                    MessageBox.Show("Автобус добавлен", "Успех");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при добавлении автобуса", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -438,9 +557,11 @@ namespace База_Данных_Городских_Автобусов
             }
 
             var selectedRow = dataGridViewBuses.SelectedRows[0];
+            int busId = (int)selectedRow.Cells["ID"].Value;
+
             var form = new BusEditForm();
             form.LoadBusData(
-                (int)selectedRow.Cells["ID"].Value,
+                busId,
                 selectedRow.Cells["Гос. номер"].Value.ToString(),
                 selectedRow.Cells["Марка"].Value.ToString(),
                 selectedRow.Cells["Модель"].Value.ToString(),
@@ -450,15 +571,29 @@ namespace База_Данных_Городских_Автобусов
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                // Обновление данных
-                selectedRow.Cells["Гос. номер"].Value = form.PlateNumber;
-                selectedRow.Cells["Марка"].Value = form.Brand;
-                selectedRow.Cells["Модель"].Value = form.Model;
-                selectedRow.Cells["Вместимость"].Value = form.Capacity;
-                selectedRow.Cells["Год"].Value = form.Year;
-                selectedRow.Cells["Активен"].Value = form.IsActive;
+                // Обновляем в базе данных
+                bool success = DataBase.UpdateBus(
+                    busId,
+                    form.PlateNumber,
+                    form.Brand,
+                    form.Model,
+                    form.Capacity,
+                    form.Year,
+                    form.IsActive
+                );
 
-                MessageBox.Show("Автобус изменен", "Успех");
+                if (success)
+                {
+                    // Обновляем данные из базы
+                    LoadDataFromDatabase();
+                    ShowBuses();
+                    MessageBox.Show("Автобус изменен", "Успех");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при обновлении автобуса", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -476,10 +611,23 @@ namespace База_Данных_Городских_Автобусов
             if (result == DialogResult.Yes)
             {
                 var selectedRow = dataGridViewBuses.SelectedRows[0];
-                busesData.Rows.RemoveAt(selectedRow.Index);
+                int busId = (int)selectedRow.Cells["ID"].Value;
 
-                ShowBuses();
-                MessageBox.Show("Автобус удален", "Успех");
+                // Удаляем из базы данных
+                bool success = DataBase.DeleteBus(busId);
+
+                if (success)
+                {
+                    // Обновляем данные из базы
+                    LoadDataFromDatabase();
+                    ShowBuses();
+                    MessageBox.Show("Автобус удален", "Успех");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при удалении автобуса", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -515,20 +663,40 @@ namespace База_Данных_Городских_Автобусов
 
         private void BtnScheduleAdd_Click(object sender, EventArgs e)
         {
+            // В реальном приложении нужно получать route_id и bus_id из выбранных значений
+            // Здесь упрощенная версия
             var form = new ScheduleEditForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                scheduleData.Rows.Add(
-                    scheduleData.Rows.Count + 1,
-                    form.Route,
-                    form.Bus,
+                // В реальном приложении нужно получать ID из базы данных
+                // Здесь используем фиктивные значения для демонстрации
+                int routeId = 1;
+                int busId = 1;
+                int availableSeats = 50; // По умолчанию
+
+                // Добавляем в базу данных
+                bool success = DataBase.InsertSchedule(
+                    routeId,
+                    busId,
                     form.DepartureTime,
                     form.ArrivalTime,
                     form.Price,
-                    form.Status);
+                    form.Status,
+                    availableSeats
+                );
 
-                ShowSchedule();
-                MessageBox.Show("Рейс добавлен", "Успех");
+                if (success)
+                {
+                    // Обновляем данные из базы
+                    LoadDataFromDatabase();
+                    ShowSchedule();
+                    MessageBox.Show("Рейс добавлен", "Успех");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при добавлении рейса", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -541,9 +709,11 @@ namespace База_Данных_Городских_Автобусов
             }
 
             var selectedRow = dataGridViewSchedule.SelectedRows[0];
+            int scheduleId = (int)selectedRow.Cells["ID"].Value;
+
             var form = new ScheduleEditForm();
             form.LoadScheduleData(
-                (int)selectedRow.Cells["ID"].Value,
+                scheduleId,
                 selectedRow.Cells["Маршрут"].Value.ToString(),
                 selectedRow.Cells["Автобус"].Value.ToString(),
                 (DateTime)selectedRow.Cells["Отправление"].Value,
@@ -553,14 +723,34 @@ namespace База_Данных_Городских_Автобусов
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                selectedRow.Cells["Маршрут"].Value = form.Route;
-                selectedRow.Cells["Автобус"].Value = form.Bus;
-                selectedRow.Cells["Отправление"].Value = form.DepartureTime;
-                selectedRow.Cells["Прибытие"].Value = form.ArrivalTime;
-                selectedRow.Cells["Цена"].Value = form.Price;
-                selectedRow.Cells["Статус"].Value = form.Status;
+                int routeId = 1;
+                int busId = 1;
+                int availableSeats = 50; // По умолчанию
 
-                MessageBox.Show("Рейс изменен", "Успех");
+                // Обновляем в базе данных
+                bool success = DataBase.UpdateSchedule(
+                    scheduleId,
+                    routeId,
+                    busId,
+                    form.DepartureTime,
+                    form.ArrivalTime,
+                    form.Price,
+                    form.Status,
+                    availableSeats
+                );
+
+                if (success)
+                {
+                    // Обновляем данные из базы
+                    LoadDataFromDatabase();
+                    ShowSchedule();
+                    MessageBox.Show("Рейс изменен", "Успех");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при обновлении рейса", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -578,10 +768,23 @@ namespace База_Данных_Городских_Автобусов
             if (result == DialogResult.Yes)
             {
                 var selectedRow = dataGridViewSchedule.SelectedRows[0];
-                scheduleData.Rows.RemoveAt(selectedRow.Index);
+                int scheduleId = (int)selectedRow.Cells["ID"].Value;
 
-                ShowSchedule();
-                MessageBox.Show("Рейс удален", "Успех");
+                // Удаляем из базы данных
+                bool success = DataBase.DeleteSchedule(scheduleId);
+
+                if (success)
+                {
+                    // Обновляем данные из базы
+                    LoadDataFromDatabase();
+                    ShowSchedule();
+                    MessageBox.Show("Рейс удален", "Успех");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при удалении рейса", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -620,19 +823,31 @@ namespace База_Данных_Городских_Автобусов
             var form = new TicketEditForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                // В реальности здесь добавление в БД
-                ticketsData.Rows.Add(
-                    ticketsData.Rows.Count + 1,
+                int scheduleId = 1;
+
+                // Добавляем в базу данных
+                bool success = DataBase.InsertTicket(
                     form.TicketNumber,
-                    form.Schedule,
+                    scheduleId,
                     form.PassengerName,
                     form.SeatNumber,
                     form.Price,
                     form.SaleDate,
-                    form.IsReturned);
+                    form.IsReturned
+                );
 
-                ShowTickets();
-                MessageBox.Show("Билет добавлен", "Успех");
+                if (success)
+                {
+                    // Обновляем данные из базы
+                    LoadDataFromDatabase();
+                    ShowTickets();
+                    MessageBox.Show("Билет добавлен", "Успех");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при добавлении билета", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -645,9 +860,11 @@ namespace База_Данных_Городских_Автобусов
             }
 
             var selectedRow = dataGridViewTickets.SelectedRows[0];
+            int ticketId = (int)selectedRow.Cells["ID"].Value;
+
             var form = new TicketEditForm();
             form.LoadTicketData(
-                (int)selectedRow.Cells["ID"].Value,
+                ticketId,
                 selectedRow.Cells["Номер"].Value.ToString(),
                 selectedRow.Cells["Рейс"].Value.ToString(),
                 selectedRow.Cells["Пассажир"].Value.ToString(),
@@ -658,15 +875,32 @@ namespace База_Данных_Городских_Автобусов
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                selectedRow.Cells["Номер"].Value = form.TicketNumber;
-                selectedRow.Cells["Рейс"].Value = form.Schedule;
-                selectedRow.Cells["Пассажир"].Value = form.PassengerName;
-                selectedRow.Cells["Место"].Value = form.SeatNumber;
-                selectedRow.Cells["Цена"].Value = form.Price;
-                selectedRow.Cells["Дата продажи"].Value = form.SaleDate;
-                selectedRow.Cells["Возвращен"].Value = form.IsReturned;
+                int scheduleId = 1;
 
-                MessageBox.Show("Билет изменен", "Успех");
+                // Обновляем в базе данных
+                bool success = DataBase.UpdateTicket(
+                    ticketId,
+                    form.TicketNumber,
+                    scheduleId,
+                    form.PassengerName,
+                    form.SeatNumber,
+                    form.Price,
+                    form.SaleDate,
+                    form.IsReturned
+                );
+
+                if (success)
+                {
+                    // Обновляем данные из базы
+                    LoadDataFromDatabase();
+                    ShowTickets();
+                    MessageBox.Show("Билет изменен", "Успех");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при обновлении билета", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -684,10 +918,23 @@ namespace База_Данных_Городских_Автобусов
             if (result == DialogResult.Yes)
             {
                 var selectedRow = dataGridViewTickets.SelectedRows[0];
-                ticketsData.Rows.RemoveAt(selectedRow.Index);
+                int ticketId = (int)selectedRow.Cells["ID"].Value;
 
-                ShowTickets();
-                MessageBox.Show("Билет удален", "Успех");
+                // Удаляем из базы данных
+                bool success = DataBase.DeleteTicket(ticketId);
+
+                if (success)
+                {
+                    // Обновляем данные из базы
+                    LoadDataFromDatabase();
+                    ShowTickets();
+                    MessageBox.Show("Билет удален", "Успех");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при удалении билета", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -726,16 +973,29 @@ namespace База_Данных_Городских_Автобусов
             var form = new UserEditForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                // В реальности здесь добавление в БД
-                usersData.Rows.Add(
-                    usersData.Rows.Count + 1,
+                string passwordHash = HashPassword(form.Password);
+
+                // Добавляем в базу данных
+                bool success = DataBase.InsertUser(
                     form.Username,
+                    passwordHash,
                     form.FullName,
                     form.Role,
-                    form.IsActive);
+                    form.IsActive
+                );
 
-                ShowUsers();
-                MessageBox.Show("Пользователь добавлен", "Успех");
+                if (success)
+                {
+                    // Обновляем данные из базы
+                    LoadDataFromDatabase();
+                    ShowUsers();
+                    MessageBox.Show("Пользователь добавлен", "Успех");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при добавлении пользователя", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -748,9 +1008,11 @@ namespace База_Данных_Городских_Автобусов
             }
 
             var selectedRow = dataGridViewUsers.SelectedRows[0];
+            int userId = (int)selectedRow.Cells["ID"].Value;
+
             var form = new UserEditForm();
             form.LoadUserData(
-                (int)selectedRow.Cells["ID"].Value,
+                userId,
                 selectedRow.Cells["Логин"].Value.ToString(),
                 selectedRow.Cells["ФИО"].Value.ToString(),
                 selectedRow.Cells["Роль"].Value.ToString(),
@@ -758,12 +1020,31 @@ namespace База_Данных_Городских_Автобусов
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                selectedRow.Cells["Логин"].Value = form.Username;
-                selectedRow.Cells["ФИО"].Value = form.FullName;
-                selectedRow.Cells["Роль"].Value = form.Role;
-                selectedRow.Cells["Активен"].Value = form.IsActive;
+                // Хешируем пароль
+                string passwordHash = HashPassword(form.Password);
 
-                MessageBox.Show("Пользователь изменен", "Успех");
+                // Обновляем в базе данных
+                bool success = DataBase.UpdateUser(
+                    userId,
+                    form.Username,
+                    passwordHash,
+                    form.FullName,
+                    form.Role,
+                    form.IsActive
+                );
+
+                if (success)
+                {
+                    // Обновляем данные из базы
+                    LoadDataFromDatabase();
+                    ShowUsers();
+                    MessageBox.Show("Пользователь изменен", "Успех");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при обновлении пользователя", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -777,6 +1058,7 @@ namespace База_Данных_Городских_Автобусов
 
             var selectedRow = dataGridViewUsers.SelectedRows[0];
             string username = selectedRow.Cells["Логин"].Value.ToString();
+            int userId = (int)selectedRow.Cells["ID"].Value;
 
             // Нельзя удалить администратора
             if (username == "admin")
@@ -791,10 +1073,21 @@ namespace База_Данных_Городских_Автобусов
 
             if (result == DialogResult.Yes)
             {
-                usersData.Rows.RemoveAt(selectedRow.Index);
+                // Удаляем из базы данных
+                bool success = DataBase.DeleteUser(userId);
 
-                ShowUsers();
-                MessageBox.Show("Пользователь удален", "Успех");
+                if (success)
+                {
+                    // Обновляем данные из базы
+                    LoadDataFromDatabase();
+                    ShowUsers();
+                    MessageBox.Show("Пользователь удален", "Успех");
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка при удалении пользователя", "Ошибка",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -811,6 +1104,19 @@ namespace База_Данных_Городских_Автобусов
             PerformSearch(txtUserSearch.Text, dataGridViewUsers);
         }
 
+        // ==================== ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ ====================
+
+        private string HashPassword(string password)
+        {
+            using (var sha256 = System.Security.Cryptography.SHA256.Create())
+            {
+                var bytes = Encoding.UTF8.GetBytes(password);
+                var hash = sha256.ComputeHash(bytes);
+                // Используем BitConverter для преобразования байтов в строку
+                return BitConverter.ToString(hash).Replace("-", "").ToLower();
+            }
+        }
+
         // ==================== КНОПКА НАЗАД ====================
 
         private void BtnBack_Click(object sender, EventArgs e)
@@ -822,10 +1128,6 @@ namespace База_Данных_Городских_Автобусов
             {
                 // Закрываем текущую форму
                 this.Close();
-
-                // В реальности здесь можно открыть главное меню:
-                // MainMenuForm mainForm = new MainMenuForm();
-                // mainForm.Show();
             }
         }
 
