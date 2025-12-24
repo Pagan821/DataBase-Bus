@@ -1,0 +1,351 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>База Данных Городских Автобусов</name>
+    </assembly>
+    <members>
+        <member name="T:База_Данных_Городских_Автобусов.DataBase">
+            <summary>
+            Основной класс для работы с базой данных системы управления городскими автобусами.
+            Предоставляет методы для создания таблиц, CRUD-операций и управления данными.
+            </summary>
+        </member>
+        <member name="F:База_Данных_Городских_Автобусов.DataBase.connectionString">
+            <summary>
+            Строка подключения к базе данных SQLite.
+            </summary>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.CreateAllTables">
+            <summary>
+            Создает все таблицы базы данных в правильном порядке.
+            </summary>
+            <remarks>
+            Метод создает таблицы в следующем порядке:
+            1. Users (Пользователи)
+            2. Routes (Маршруты)
+            3. Buses (Автобусы)
+            4. Schedule (Расписание)
+            5. Tickets (Билеты)
+            </remarks>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.CreateTableUsers">
+            <summary>
+            Создает таблицу пользователей системы.
+            </summary>
+            <exception cref="T:System.Exception">Выбрасывается при ошибке создания таблицы.</exception>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.CreateTableRoutes">
+            <summary>
+            Создает таблицу маршрутов автобусов.
+            </summary>
+            <exception cref="T:System.Exception">Выбрасывается при ошибке создания таблицы.</exception>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.CreateTableBuses">
+            <summary>
+            Создает таблицу автобусов транспортного предприятия.
+            </summary>
+            <exception cref="T:System.Exception">Выбрасывается при ошибке создания таблицы.</exception>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.CreateTableSchedule">
+            <summary>
+            Создает таблицу расписания рейсов.
+            </summary>
+            <remarks>
+            Таблица содержит связи с таблицами Routes и Buses через внешние ключи.
+            </remarks>
+            <exception cref="T:System.Exception">Выбрасывается при ошибке создания таблицы.</exception>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.CreateTableTickets">
+            <summary>
+            Создает таблицу проданных билетов.
+            </summary>
+            <remarks>
+            Таблица содержит уникальное ограничение на комбинацию schedule_id и seat_number,
+            что предотвращает продажу одного места дважды.
+            </remarks>
+            <exception cref="T:System.Exception">Выбрасывается при ошибке создания таблицы.</exception>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.GetAllUsers">
+            <summary>
+            Получает всех пользователей системы.
+            </summary>
+            <returns>DataTable со всеми пользователями, отсортированными по ID.</returns>
+            <remarks>
+            Возвращает все поля таблицы Users в виде DataTable.
+            </remarks>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.GetAllRoutes">
+            <summary>
+            Получает все маршруты из базы данных.
+            </summary>
+            <returns>DataTable со всеми маршрутами, отсортированными по ID.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.GetAllBuses">
+            <summary>
+            Получает все автобусы транспортного парка.
+            </summary>
+            <returns>DataTable со всеми автобусами, отсортированными по ID.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.GetAllSchedules">
+            <summary>
+            Получает полное расписание рейсов с информацией о маршрутах и автобусах.
+            </summary>
+            <returns>DataTable с расписанием, отсортированным по времени отправления.</returns>
+            <remarks>
+            Выполняет JOIN трех таблиц: Schedule, Routes и Buses.
+            </remarks>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.GetAllTickets">
+            <summary>
+            Получает все проданные билеты с информацией о рейсах.
+            </summary>
+            <returns>DataTable с билетами, отсортированными по дате продажи (новые сверху).</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.GetUserById(System.Int32)">
+            <summary>
+            Получает пользователя по его уникальному идентификатору.
+            </summary>
+            <param name="userId">ID пользователя для поиска.</param>
+            <returns>DataRow с данными пользователя или null, если пользователь не найден.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.InsertUser(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Добавляет нового пользователя в систему.
+            </summary>
+            <param name="username">Уникальное имя пользователя.</param>
+            <param name="passwordHash">Хеш пароля пользователя.</param>
+            <param name="fullName">Полное имя пользователя.</param>
+            <param name="role">Роль пользователя (Администратор, Диспетчер, Кассир).</param>
+            <param name="isActive">Статус активности пользователя.</param>
+            <returns>true если пользователь успешно добавлен, иначе false.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.InsertRoute(System.String,System.String,System.String,System.String,System.Int32,System.Boolean)">
+            <summary>
+            Добавляет новый маршрут в базу данных.
+            </summary>
+            <param name="routeNumber">Номер маршрута.</param>
+            <param name="departureCity">Город отправления.</param>
+            <param name="arrivalCity">Город прибытия.</param>
+            <param name="distance">Расстояние маршрута.</param>
+            <param name="durationMinutes">Продолжительность маршрута в минутах.</param>
+            <param name="isActive">Статус активности маршрута.</param>
+            <returns>true если маршрут успешно добавлен, иначе false.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.InsertBus(System.String,System.String,System.String,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Добавляет новый автобус в транспортный парк.
+            </summary>
+            <param name="plateNumber">Государственный номер (уникальный).</param>
+            <param name="brand">Марка автобуса.</param>
+            <param name="model">Модель автобуса.</param>
+            <param name="capacity">Вместимость пассажиров.</param>
+            <param name="year">Год выпуска.</param>
+            <param name="isActive">Статус активности автобуса.</param>
+            <returns>true если автобус успешно добавлен, иначе false.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.InsertSchedule(System.Int32,System.Int32,System.DateTime,System.DateTime,System.Decimal,System.String,System.Int32)">
+            <summary>
+            Добавляет новый рейс в расписание.
+            </summary>
+            <param name="routeId">ID маршрута.</param>
+            <param name="busId">ID автобуса.</param>
+            <param name="departureTime">Время отправления.</param>
+            <param name="arrivalTime">Время прибытия.</param>
+            <param name="price">Цена билета.</param>
+            <param name="status">Статус рейса (Планируется, Выполняется, Завершен, Отменен).</param>
+            <param name="availableSeats">Количество доступных мест.</param>
+            <returns>true если рейс успешно добавлен, иначе false.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.InsertTicket(System.String,System.Int32,System.String,System.Int32,System.Decimal,System.DateTime,System.Boolean)">
+            <summary>
+            Добавляет новый проданный билет.
+            </summary>
+            <param name="ticketNumber">Уникальный номер билета.</param>
+            <param name="scheduleId">ID рейса.</param>
+            <param name="passengerName">ФИО пассажира.</param>
+            <param name="seatNumber">Номер места.</param>
+            <param name="price">Цена билета.</param>
+            <param name="saleDate">Дата и время продажи.</param>
+            <param name="isReturned">Статус возврата билета.</param>
+            <returns>true если билет успешно добавлен, иначе false.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.UpdateUser(System.Int32,System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Обновляет данные пользователя.
+            </summary>
+            <param name="userId">ID пользователя для обновления.</param>
+            <param name="username">Новое имя пользователя.</param>
+            <param name="passwordHash">Новый хеш пароля.</param>
+            <param name="fullName">Новое полное имя.</param>
+            <param name="role">Новая роль.</param>
+            <param name="isActive">Новый статус активности.</param>
+            <returns>true если обновление успешно, иначе false.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.UpdateRoute(System.Int32,System.String,System.String,System.String,System.String,System.Int32,System.Boolean)">
+            <summary>
+            Обновляет данные маршрута.
+            </summary>
+            <param name="routeId">ID маршрута для обновления.</param>
+            <param name="routeNumber">Новый номер маршрута.</param>
+            <param name="departureCity">Новый город отправления.</param>
+            <param name="arrivalCity">Новый город прибытия.</param>
+            <param name="distance">Новое расстояние.</param>
+            <param name="durationMinutes">Новая продолжительность в минутах.</param>
+            <param name="isActive">Новый статус активности.</param>
+            <returns>true если обновление успешно, иначе false.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.UpdateBus(System.Int32,System.String,System.String,System.String,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Обновляет данные автобуса.
+            </summary>
+            <param name="busId">ID автобуса для обновления.</param>
+            <param name="plateNumber">Новый госномер.</param>
+            <param name="brand">Новая марка.</param>
+            <param name="model">Новая модель.</param>
+            <param name="capacity">Новая вместимость.</param>
+            <param name="year">Новый год выпуска.</param>
+            <param name="isActive">Новый статус активности.</param>
+            <returns>true если обновление успешно, иначе false.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.UpdateSchedule(System.Int32,System.Int32,System.Int32,System.DateTime,System.DateTime,System.Decimal,System.String,System.Int32)">
+            <summary>
+            Обновляет данные рейса в расписании.
+            </summary>
+            <param name="scheduleId">ID рейса для обновления.</param>
+            <param name="routeId">Новый ID маршрута.</param>
+            <param name="busId">Новый ID автобуса.</param>
+            <param name="departureTime">Новое время отправления.</param>
+            <param name="arrivalTime">Новое время прибытия.</param>
+            <param name="price">Новая цена.</param>
+            <param name="status">Новый статус.</param>
+            <param name="availableSeats">Новое количество доступных мест.</param>
+            <returns>true если обновление успешно, иначе false.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.UpdateTicket(System.Int32,System.String,System.Int32,System.String,System.Int32,System.Decimal,System.DateTime,System.Boolean)">
+            <summary>
+            Обновляет данные билета.
+            </summary>
+            <param name="ticketId">ID билета для обновления.</param>
+            <param name="ticketNumber">Новый номер билета.</param>
+            <param name="scheduleId">Новый ID рейса.</param>
+            <param name="passengerName">Новое ФИО пассажира.</param>
+            <param name="seatNumber">Новый номер места.</param>
+            <param name="price">Новая цена.</param>
+            <param name="saleDate">Новая дата продажи.</param>
+            <param name="isReturned">Новый статус возврата.</param>
+            <returns>true если обновление успешно, иначе false.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.DeleteUser(System.Int32)">
+            <summary>
+            Удаляет пользователя по ID.
+            </summary>
+            <param name="userId">ID пользователя для удаления.</param>
+            <returns>true если удаление успешно, иначе false.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.DeleteRoute(System.Int32)">
+            <summary>
+            Удаляет маршрут по ID.
+            </summary>
+            <param name="routeId">ID маршрута для удаления.</param>
+            <returns>true если удаление успешно, иначе false.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.DeleteBus(System.Int32)">
+            <summary>
+            Удаляет автобус по ID.
+            </summary>
+            <param name="busId">ID автобуса для удаления.</param>
+            <returns>true если удаление успешно, иначе false.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.DeleteSchedule(System.Int32)">
+            <summary>
+            Удаляет рейс из расписания по ID.
+            </summary>
+            <param name="scheduleId">ID рейса для удаления.</param>
+            <returns>true если удаление успешно, иначе false.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.DeleteTicket(System.Int32)">
+            <summary>
+            Удаляет билет по ID.
+            </summary>
+            <param name="ticketId">ID билета для удаления.</param>
+            <returns>true если удаление успешно, иначе false.</returns>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.CreateIndexes">
+            <summary>
+            Создает индексы для оптимизации работы базы данных.
+            </summary>
+            <remarks>
+            Создает индексы для часто используемых полей всех таблиц.
+            </remarks>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.InsertTestData">
+            <summary>
+            Вставляет тестовые данные в базу данных.
+            </summary>
+            <remarks>
+            Добавляет тестовые маршруты, автобусы, пользователей, расписание и билеты.
+            Используется для первоначального заполнения базы данных или тестирования.
+            </remarks>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.CheckLogin(System.String,System.String)">
+            <summary>
+            Проверяет корректность логина и пароля пользователя.
+            </summary>
+            <param name="username">Имя пользователя.</param>
+            <param name="passwordHash">Хеш пароля для проверки.</param>
+            <returns>true если логин и пароль корректны и пользователь активен, иначе false.</returns>
+            <remarks>
+            Метод проверяет наличие активного пользователя с указанными именем и хешем пароля.
+            </remarks>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.HashPassword(System.String)">
+            <summary>
+            Создает SHA256 хеш пароля.
+            </summary>
+            <param name="password">Пароль для хеширования.</param>
+            <returns>Хеш пароля в виде шестнадцатеричной строки.</returns>
+            <remarks>
+            Использует алгоритм SHA256 для создания безопасного хеша пароля.
+            Все хеши приводятся к нижнему регистру для единообразия.
+            </remarks>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.InitializeDatabase">
+            <summary>
+            Инициализирует базу данных: создает файл, таблицы, индексы и тестовые данные.
+            </summary>
+            <remarks>
+            Полный процесс инициализации базы данных при первом запуске приложения.
+            </remarks>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.DataBase.GetConnection">
+            <summary>
+            Создает и возвращает новое соединение с базой данных.
+            </summary>
+            <returns>Новое соединение SqliteConnection.</returns>
+            <remarks>
+            Используется для ручного управления соединениями в особых случаях.
+            </remarks>
+        </member>
+        <member name="M:База_Данных_Городских_Автобусов.Program.Main">
+            <summary>
+            Главная точка входа для приложения.
+            </summary>
+        </member>
+        <member name="T:База_Данных_Городских_Автобусов.Properties.Resources">
+            <summary>
+              Класс ресурсов со строгим типом для поиска локализованных строк и пр.
+            </summary>
+        </member>
+        <member name="P:База_Данных_Городских_Автобусов.Properties.Resources.ResourceManager">
+            <summary>
+              Возврат кэшированного экземпляра ResourceManager, используемого этим классом.
+            </summary>
+        </member>
+        <member name="P:База_Данных_Городских_Автобусов.Properties.Resources.Culture">
+            <summary>
+              Переопределяет свойство CurrentUICulture текущего потока для всех
+              подстановки ресурсов с помощью этого класса ресурсов со строгим типом.
+            </summary>
+        </member>
+    </members>
+</doc>

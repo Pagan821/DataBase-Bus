@@ -20,7 +20,6 @@ C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\System.Numerics.Vecto
 C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
 C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\System.Buffers.dll
 C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\BUS-Class.pdb
-C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\Microsoft.Data.Sqlite.xml
 C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\System.Memory.xml
@@ -35,3 +34,4 @@ C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\obj\Debug\BUS-Test.pdb
 C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\База Данных Городских Автобусов.exe
 C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\База Данных Городских Автобусов.pdb
 C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\База Данных Городских Автобусов.exe.config
+C:\Users\User\Desktop\БД\DataBase-Bus\BUS-Test\bin\Debug\База Данных Городских Автобусов.xml

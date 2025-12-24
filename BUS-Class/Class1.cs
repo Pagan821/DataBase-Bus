@@ -29,15 +29,21 @@ namespace BUS_Class
         {
             try
             {
+                // Создаем таблицы в правильном порядке (сначала родительские, потом дочерние)
                 CreateTableUsers();
                 CreateTableRoutes();
                 CreateTableBuses();
+
+                // Ждем немного чтобы таблицы создались
+                System.Threading.Thread.Sleep(100);
+
                 CreateTableSchedule();
                 CreateTableTickets();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"Ошибка создания таблиц: {ex.Message}");
                 return false;
             }
         }
@@ -51,23 +57,28 @@ namespace BUS_Class
                     conn.Open();
                     SqliteCommand cmd = new SqliteCommand();
                     cmd.Connection = conn;
-                    cmd.CommandText = @"CREATE TABLE IF NOT EXISTS Users (
-                                       user_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-                                       username TEXT NOT NULL UNIQUE,
-                                       password_hash TEXT NOT NULL,
-                                       full_name TEXT NOT NULL,
-                                       role TEXT NOT NULL,
-                                       is_active BOOLEAN DEFAULT 1,
-                                       created_date DATETIME DEFAULT CURRENT_TIMESTAMP)";
+                    cmd.CommandText = @"DROP TABLE IF EXISTS Users";
+                    cmd.ExecuteNonQuery();
+
+                    cmd.CommandText = @"CREATE TABLE Users (
+                               user_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+                               username TEXT NOT NULL UNIQUE,
+                               password_hash TEXT NOT NULL,
+                               full_name TEXT NOT NULL,
+                               role TEXT NOT NULL,
+                               is_active BOOLEAN DEFAULT 1,
+                               created_date DATETIME DEFAULT CURRENT_TIMESTAMP)";
                     cmd.ExecuteNonQuery();
                     return true;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    System.Diagnostics.Debug.WriteLine($"Ошибка создания таблицы Users: {ex.Message}");
                     return false;
                 }
             }
         }
+
 
         private static bool CreateTableRoutes()
         {
@@ -574,12 +585,13 @@ namespace BUS_Class
                 var bytes = Encoding.UTF8.GetBytes(password);
                 var hash = sha256.ComputeHash(bytes);
 
+                // Убедимся что хеш всегда одинаковый
                 StringBuilder sb = new StringBuilder();
                 foreach (byte b in hash)
                 {
-                    sb.Append(b.ToString("x2"));
+                    sb.Append(b.ToString("x2")); // Всегда в нижнем регистре
                 }
-                return sb.ToString();
+                return sb.ToString().ToLower(); // Приводим к нижнему регистру
             }
         }
 

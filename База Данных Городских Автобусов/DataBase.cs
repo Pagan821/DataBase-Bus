@@ -9,14 +9,32 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace База_Данных_Городских_Автобусов
 {
+    /// <summary>
+    /// Основной класс для работы с базой данных системы управления городскими автобусами.
+    /// Предоставляет методы для создания таблиц, CRUD-операций и управления данными.
+    /// </summary>
     internal class DataBase
     {
+        /// <summary>
+        /// Строка подключения к базе данных SQLite.
+        /// </summary>
         static string connectionString = "Data Source=City-Bus.db";
 
         // ==================== CREATE ====================
+
+        /// <summary>
+        /// Создает все таблицы базы данных в правильном порядке.
+        /// </summary>
+        /// <remarks>
+        /// Метод создает таблицы в следующем порядке:
+        /// 1. Users (Пользователи)
+        /// 2. Routes (Маршруты)
+        /// 3. Buses (Автобусы)
+        /// 4. Schedule (Расписание)
+        /// 5. Tickets (Билеты)
+        /// </remarks>
         public static void CreateAllTables()
         {
             CreateTableUsers();
@@ -26,6 +44,10 @@ namespace База_Данных_Городских_Автобусов
             CreateTableTickets();
         }
 
+        /// <summary>
+        /// Создает таблицу пользователей системы.
+        /// </summary>
+        /// <exception cref="Exception">Выбрасывается при ошибке создания таблицы.</exception>
         private static void CreateTableUsers()
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -57,6 +79,10 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Создает таблицу маршрутов автобусов.
+        /// </summary>
+        /// <exception cref="Exception">Выбрасывается при ошибке создания таблицы.</exception>
         private static void CreateTableRoutes()
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -91,6 +117,10 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Создает таблицу автобусов транспортного предприятия.
+        /// </summary>
+        /// <exception cref="Exception">Выбрасывается при ошибке создания таблицы.</exception>
         private static void CreateTableBuses()
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -125,6 +155,13 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Создает таблицу расписания рейсов.
+        /// </summary>
+        /// <remarks>
+        /// Таблица содержит связи с таблицами Routes и Buses через внешние ключи.
+        /// </remarks>
+        /// <exception cref="Exception">Выбрасывается при ошибке создания таблицы.</exception>
         private static void CreateTableSchedule()
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -162,6 +199,14 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Создает таблицу проданных билетов.
+        /// </summary>
+        /// <remarks>
+        /// Таблица содержит уникальное ограничение на комбинацию schedule_id и seat_number,
+        /// что предотвращает продажу одного места дважды.
+        /// </remarks>
+        /// <exception cref="Exception">Выбрасывается при ошибке создания таблицы.</exception>
         private static void CreateTableTickets()
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -200,6 +245,14 @@ namespace База_Данных_Городских_Автобусов
         }
 
         // ==================== SELECT ====================
+
+        /// <summary>
+        /// Получает всех пользователей системы.
+        /// </summary>
+        /// <returns>DataTable со всеми пользователями, отсортированными по ID.</returns>
+        /// <remarks>
+        /// Возвращает все поля таблицы Users в виде DataTable.
+        /// </remarks>
         public static DataTable GetAllUsers()
         {
             DataTable dt = new DataTable();
@@ -241,6 +294,10 @@ namespace База_Данных_Городских_Автобусов
             return dt;
         }
 
+        /// <summary>
+        /// Получает все маршруты из базы данных.
+        /// </summary>
+        /// <returns>DataTable со всеми маршрутами, отсортированными по ID.</returns>
         public static DataTable GetAllRoutes()
         {
             DataTable dt = new DataTable();
@@ -282,6 +339,10 @@ namespace База_Данных_Городских_Автобусов
             return dt;
         }
 
+        /// <summary>
+        /// Получает все автобусы транспортного парка.
+        /// </summary>
+        /// <returns>DataTable со всеми автобусами, отсортированными по ID.</returns>
         public static DataTable GetAllBuses()
         {
             DataTable dt = new DataTable();
@@ -323,6 +384,13 @@ namespace База_Данных_Городских_Автобусов
             return dt;
         }
 
+        /// <summary>
+        /// Получает полное расписание рейсов с информацией о маршрутах и автобусах.
+        /// </summary>
+        /// <returns>DataTable с расписанием, отсортированным по времени отправления.</returns>
+        /// <remarks>
+        /// Выполняет JOIN трех таблиц: Schedule, Routes и Buses.
+        /// </remarks>
         public static DataTable GetAllSchedules()
         {
             DataTable dt = new DataTable();
@@ -370,6 +438,10 @@ namespace База_Данных_Городских_Автобусов
             return dt;
         }
 
+        /// <summary>
+        /// Получает все проданные билеты с информацией о рейсах.
+        /// </summary>
+        /// <returns>DataTable с билетами, отсортированными по дате продажи (новые сверху).</returns>
         public static DataTable GetAllTickets()
         {
             DataTable dt = new DataTable();
@@ -416,6 +488,11 @@ namespace База_Данных_Городских_Автобусов
             return dt;
         }
 
+        /// <summary>
+        /// Получает пользователя по его уникальному идентификатору.
+        /// </summary>
+        /// <param name="userId">ID пользователя для поиска.</param>
+        /// <returns>DataRow с данными пользователя или null, если пользователь не найден.</returns>
         public static DataRow GetUserById(int userId)
         {
             DataTable dt = new DataTable();
@@ -460,6 +537,16 @@ namespace База_Данных_Городских_Автобусов
         }
 
         // ==================== INSERT ====================
+
+        /// <summary>
+        /// Добавляет нового пользователя в систему.
+        /// </summary>
+        /// <param name="username">Уникальное имя пользователя.</param>
+        /// <param name="passwordHash">Хеш пароля пользователя.</param>
+        /// <param name="fullName">Полное имя пользователя.</param>
+        /// <param name="role">Роль пользователя (Администратор, Диспетчер, Кассир).</param>
+        /// <param name="isActive">Статус активности пользователя.</param>
+        /// <returns>true если пользователь успешно добавлен, иначе false.</returns>
         public static bool InsertUser(string username, string passwordHash, string fullName, string role, bool isActive)
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -492,6 +579,16 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Добавляет новый маршрут в базу данных.
+        /// </summary>
+        /// <param name="routeNumber">Номер маршрута.</param>
+        /// <param name="departureCity">Город отправления.</param>
+        /// <param name="arrivalCity">Город прибытия.</param>
+        /// <param name="distance">Расстояние маршрута.</param>
+        /// <param name="durationMinutes">Продолжительность маршрута в минутах.</param>
+        /// <param name="isActive">Статус активности маршрута.</param>
+        /// <returns>true если маршрут успешно добавлен, иначе false.</returns>
         public static bool InsertRoute(string routeNumber, string departureCity, string arrivalCity,
                                        string distance, int durationMinutes, bool isActive)
         {
@@ -528,6 +625,16 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Добавляет новый автобус в транспортный парк.
+        /// </summary>
+        /// <param name="plateNumber">Государственный номер (уникальный).</param>
+        /// <param name="brand">Марка автобуса.</param>
+        /// <param name="model">Модель автобуса.</param>
+        /// <param name="capacity">Вместимость пассажиров.</param>
+        /// <param name="year">Год выпуска.</param>
+        /// <param name="isActive">Статус активности автобуса.</param>
+        /// <returns>true если автобус успешно добавлен, иначе false.</returns>
         public static bool InsertBus(string plateNumber, string brand, string model,
                                      int capacity, int year, bool isActive)
         {
@@ -562,6 +669,17 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Добавляет новый рейс в расписание.
+        /// </summary>
+        /// <param name="routeId">ID маршрута.</param>
+        /// <param name="busId">ID автобуса.</param>
+        /// <param name="departureTime">Время отправления.</param>
+        /// <param name="arrivalTime">Время прибытия.</param>
+        /// <param name="price">Цена билета.</param>
+        /// <param name="status">Статус рейса (Планируется, Выполняется, Завершен, Отменен).</param>
+        /// <param name="availableSeats">Количество доступных мест.</param>
+        /// <returns>true если рейс успешно добавлен, иначе false.</returns>
         public static bool InsertSchedule(int routeId, int busId, DateTime departureTime,
                                           DateTime arrivalTime, decimal price, string status, int availableSeats)
         {
@@ -599,6 +717,17 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Добавляет новый проданный билет.
+        /// </summary>
+        /// <param name="ticketNumber">Уникальный номер билета.</param>
+        /// <param name="scheduleId">ID рейса.</param>
+        /// <param name="passengerName">ФИО пассажира.</param>
+        /// <param name="seatNumber">Номер места.</param>
+        /// <param name="price">Цена билета.</param>
+        /// <param name="saleDate">Дата и время продажи.</param>
+        /// <param name="isReturned">Статус возврата билета.</param>
+        /// <returns>true если билет успешно добавлен, иначе false.</returns>
         public static bool InsertTicket(string ticketNumber, int scheduleId, string passengerName,
                                         int seatNumber, decimal price, DateTime saleDate, bool isReturned)
         {
@@ -637,6 +766,17 @@ namespace База_Данных_Городских_Автобусов
         }
 
         // ==================== UPDATE ====================
+
+        /// <summary>
+        /// Обновляет данные пользователя.
+        /// </summary>
+        /// <param name="userId">ID пользователя для обновления.</param>
+        /// <param name="username">Новое имя пользователя.</param>
+        /// <param name="passwordHash">Новый хеш пароля.</param>
+        /// <param name="fullName">Новое полное имя.</param>
+        /// <param name="role">Новая роль.</param>
+        /// <param name="isActive">Новый статус активности.</param>
+        /// <returns>true если обновление успешно, иначе false.</returns>
         public static bool UpdateUser(int userId, string username, string passwordHash,
                                      string fullName, string role, bool isActive)
         {
@@ -676,6 +816,17 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Обновляет данные маршрута.
+        /// </summary>
+        /// <param name="routeId">ID маршрута для обновления.</param>
+        /// <param name="routeNumber">Новый номер маршрута.</param>
+        /// <param name="departureCity">Новый город отправления.</param>
+        /// <param name="arrivalCity">Новый город прибытия.</param>
+        /// <param name="distance">Новое расстояние.</param>
+        /// <param name="durationMinutes">Новая продолжительность в минутах.</param>
+        /// <param name="isActive">Новый статус активности.</param>
+        /// <returns>true если обновление успешно, иначе false.</returns>
         public static bool UpdateRoute(int routeId, string routeNumber, string departureCity,
                                        string arrivalCity, string distance, int durationMinutes, bool isActive)
         {
@@ -717,6 +868,17 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Обновляет данные автобуса.
+        /// </summary>
+        /// <param name="busId">ID автобуса для обновления.</param>
+        /// <param name="plateNumber">Новый госномер.</param>
+        /// <param name="brand">Новая марка.</param>
+        /// <param name="model">Новая модель.</param>
+        /// <param name="capacity">Новая вместимость.</param>
+        /// <param name="year">Новый год выпуска.</param>
+        /// <param name="isActive">Новый статус активности.</param>
+        /// <returns>true если обновление успешно, иначе false.</returns>
         public static bool UpdateBus(int busId, string plateNumber, string brand, string model,
                                      int capacity, int year, bool isActive)
         {
@@ -758,6 +920,18 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Обновляет данные рейса в расписании.
+        /// </summary>
+        /// <param name="scheduleId">ID рейса для обновления.</param>
+        /// <param name="routeId">Новый ID маршрута.</param>
+        /// <param name="busId">Новый ID автобуса.</param>
+        /// <param name="departureTime">Новое время отправления.</param>
+        /// <param name="arrivalTime">Новое время прибытия.</param>
+        /// <param name="price">Новая цена.</param>
+        /// <param name="status">Новый статус.</param>
+        /// <param name="availableSeats">Новое количество доступных мест.</param>
+        /// <returns>true если обновление успешно, иначе false.</returns>
         public static bool UpdateSchedule(int scheduleId, int routeId, int busId, DateTime departureTime,
                                           DateTime arrivalTime, decimal price, string status, int availableSeats)
         {
@@ -801,6 +975,18 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Обновляет данные билета.
+        /// </summary>
+        /// <param name="ticketId">ID билета для обновления.</param>
+        /// <param name="ticketNumber">Новый номер билета.</param>
+        /// <param name="scheduleId">Новый ID рейса.</param>
+        /// <param name="passengerName">Новое ФИО пассажира.</param>
+        /// <param name="seatNumber">Новый номер места.</param>
+        /// <param name="price">Новая цена.</param>
+        /// <param name="saleDate">Новая дата продажи.</param>
+        /// <param name="isReturned">Новый статус возврата.</param>
+        /// <returns>true если обновление успешно, иначе false.</returns>
         public static bool UpdateTicket(int ticketId, string ticketNumber, int scheduleId, string passengerName,
                                         int seatNumber, decimal price, DateTime saleDate, bool isReturned)
         {
@@ -845,6 +1031,12 @@ namespace База_Данных_Городских_Автобусов
         }
 
         // ==================== DELETE ====================
+
+        /// <summary>
+        /// Удаляет пользователя по ID.
+        /// </summary>
+        /// <param name="userId">ID пользователя для удаления.</param>
+        /// <returns>true если удаление успешно, иначе false.</returns>
         public static bool DeleteUser(int userId)
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -870,6 +1062,11 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Удаляет маршрут по ID.
+        /// </summary>
+        /// <param name="routeId">ID маршрута для удаления.</param>
+        /// <returns>true если удаление успешно, иначе false.</returns>
         public static bool DeleteRoute(int routeId)
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -895,6 +1092,11 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Удаляет автобус по ID.
+        /// </summary>
+        /// <param name="busId">ID автобуса для удаления.</param>
+        /// <returns>true если удаление успешно, иначе false.</returns>
         public static bool DeleteBus(int busId)
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -920,6 +1122,11 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Удаляет рейс из расписания по ID.
+        /// </summary>
+        /// <param name="scheduleId">ID рейса для удаления.</param>
+        /// <returns>true если удаление успешно, иначе false.</returns>
         public static bool DeleteSchedule(int scheduleId)
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -945,6 +1152,11 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Удаляет билет по ID.
+        /// </summary>
+        /// <param name="ticketId">ID билета для удаления.</param>
+        /// <returns>true если удаление успешно, иначе false.</returns>
         public static bool DeleteTicket(int ticketId)
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -971,6 +1183,13 @@ namespace База_Данных_Городских_Автобусов
         }
 
         // ==================== ДОПОЛНИТЕЛЬНЫЕ МЕТОДЫ ====================
+
+        /// <summary>
+        /// Создает индексы для оптимизации работы базы данных.
+        /// </summary>
+        /// <remarks>
+        /// Создает индексы для часто используемых полей всех таблиц.
+        /// </remarks>
         public static void CreateIndexes()
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -1030,6 +1249,13 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Вставляет тестовые данные в базу данных.
+        /// </summary>
+        /// <remarks>
+        /// Добавляет тестовые маршруты, автобусы, пользователей, расписание и билеты.
+        /// Используется для первоначального заполнения базы данных или тестирования.
+        /// </remarks>
         public static void InsertTestData()
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -1097,6 +1323,15 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Проверяет корректность логина и пароля пользователя.
+        /// </summary>
+        /// <param name="username">Имя пользователя.</param>
+        /// <param name="passwordHash">Хеш пароля для проверки.</param>
+        /// <returns>true если логин и пароль корректны и пользователь активен, иначе false.</returns>
+        /// <remarks>
+        /// Метод проверяет наличие активного пользователя с указанными именем и хешем пароля.
+        /// </remarks>
         public static bool CheckLogin(string username, string passwordHash)
         {
             SqliteConnection conn = new SqliteConnection(connectionString);
@@ -1125,6 +1360,15 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Создает SHA256 хеш пароля.
+        /// </summary>
+        /// <param name="password">Пароль для хеширования.</param>
+        /// <returns>Хеш пароля в виде шестнадцатеричной строки.</returns>
+        /// <remarks>
+        /// Использует алгоритм SHA256 для создания безопасного хеша пароля.
+        /// Все хеши приводятся к нижнему регистру для единообразия.
+        /// </remarks>
         public static string HashPassword(string password)
         {
             using (var sha256 = System.Security.Cryptography.SHA256.Create())
@@ -1141,6 +1385,12 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Инициализирует базу данных: создает файл, таблицы, индексы и тестовые данные.
+        /// </summary>
+        /// <remarks>
+        /// Полный процесс инициализации базы данных при первом запуске приложения.
+        /// </remarks>
         public static void InitializeDatabase()
         {
             try
@@ -1173,6 +1423,13 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+        /// <summary>
+        /// Создает и возвращает новое соединение с базой данных.
+        /// </summary>
+        /// <returns>Новое соединение SqliteConnection.</returns>
+        /// <remarks>
+        /// Используется для ручного управления соединениями в особых случаях.
+        /// </remarks>
         public static SqliteConnection GetConnection()
         {
             return new SqliteConnection(connectionString);

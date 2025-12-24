@@ -3512,6 +3512,9 @@
                 Reverts the changes made in the transaction.
             </summary>
         </member>
+        <member name="P:Microsoft.Data.Sqlite.SqliteTransaction.SupportsSavepoints">
+            <inheritdoc />
+        </member>
         <member name="M:Microsoft.Data.Sqlite.SqliteTransaction.Save(System.String)">
             <summary>
                 Creates a savepoint in the transaction. This allows all commands that are executed after the savepoint was

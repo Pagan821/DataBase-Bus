@@ -19,7 +19,6 @@ C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских
 C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\Debug\System.Memory.dll
 C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\Debug\System.Numerics.Vectors.dll
 C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
-C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\Debug\Microsoft.Data.Sqlite.xml
 C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\Debug\System.Buffers.xml
 C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\Debug\System.Memory.xml
 C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\Debug\System.Numerics.Vectors.xml
@@ -32,4 +31,7 @@ C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских
 C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\obj\Debug\____ ___.A186FBA9.Up2Date
 C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\obj\Debug\База Данных Городских Автобусов.exe
 C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\obj\Debug\База Данных Городских Автобусов.pdb
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\Debug\База Данных Городских Автобусов.xml
 C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\obj\Debug\База Данных Городских Автобусов.exe.config
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\Debug\Microsoft.Data.Sqlite.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\Debug\Microsoft.Data.Sqlite.xml
