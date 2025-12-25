@@ -1,0 +1,27 @@
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\packages\SourceGear.sqlite3.3.50.4.2\runtimes\win-x64\native\e_sqlite3.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\База Данных Городских Автобусов.exe.config
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\База Данных Городских Автобусов.exe
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\База Данных Городских Автобусов.pdb
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\База Данных Городских Автобусов.xml
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\Microsoft.Data.Sqlite.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\SQLitePCLRaw.batteries_v2.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\SQLitePCLRaw.core.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\SQLitePCLRaw.provider.e_sqlite3.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\System.Buffers.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\System.Memory.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\System.Numerics.Vectors.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\Microsoft.Data.Sqlite.xml
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\System.Buffers.xml
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\System.Memory.xml
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\System.Numerics.Vectors.xml
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\bin\x64\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\obj\x64\Debug\База Данных Городских Автобусов.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\obj\x64\Debug\База_Данных_Городских_Автобусов.MainDatabaseForm.resources
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\obj\x64\Debug\База_Данных_Городских_Автобусов.Properties.Resources.resources
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\obj\x64\Debug\База Данных Городских Автобусов.csproj.GenerateResource.cache
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\obj\x64\Debug\База Данных Городских Автобусов.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\obj\x64\Debug\____ ___.A186FBA9.Up2Date
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\obj\x64\Debug\База Данных Городских Автобусов.exe
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\obj\x64\Debug\База Данных Городских Автобусов.pdb
+C:\Users\User\Desktop\БД\DataBase-Bus\База Данных Городских Автобусов\obj\x64\Debug\База Данных Городских Автобусов.exe.config

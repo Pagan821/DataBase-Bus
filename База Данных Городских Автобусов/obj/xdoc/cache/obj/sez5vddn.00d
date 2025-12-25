@@ -1,0 +1,10 @@
+id: База Данных Городских Автобусов
+language: CSharp
+name:
+  Default: База Данных Городских Автобусов
+qualifiedName:
+  Default: База Данных Городских Автобусов
+type: Assembly
+modifiers: {}
+items: []
+references: {}
