@@ -20,6 +20,11 @@ namespace База_Данных_Городских_Автобусов
         public DateTime SaleDate { get; private set; }
         public bool IsReturned { get; private set; }
 
+        public int SelectedScheduleId { get; private set; }
+
+        // Словарь для хранения соответствия между текстом и ID расписания
+        private Dictionary<string, int> scheduleDictionary = new Dictionary<string, int>();
+
         public TicketEditForm()
         {
             InitializeComponent();
@@ -41,18 +46,36 @@ namespace База_Данных_Городских_Автобусов
 
         private void LoadComboBoxData()
         {
-            // В реальности здесь загрузка из БД
-            cmbSchedule.Items.AddRange(new string[] {
-                "101 Москва-СПб (17.12.2024 10:00)",
-                "202 Казань-Уфа (18.12.2024 14:00)",
-                "305 Новосибирск-Томск (19.12.2024 08:00)",
-                "124 Ипатово-Ставрополь (21.7.2024)",
-                "228 Ипатово-Москва (22.06.2025)",
-                 "314 Санкт-Петербург-Питер (04.04.2025)"
+            try
+            {
+                // Очищаем комбобокс и словарь
+                cmbSchedule.Items.Clear();
+                scheduleDictionary.Clear();
 
-            });
+                // Загружаем расписание из базы данных
+                DataTable schedules = DataBase.GetAllSchedules();
+                foreach (DataRow row in schedules.Rows)
+                {
+                    int scheduleId = Convert.ToInt32(row["schedule_id"]);
+                    string routeNumber = row["route_number"].ToString();
+                    string departureCity = row["departure_city"].ToString();
+                    string arrivalCity = row["arrival_city"].ToString();
+                    DateTime departureTime = Convert.ToDateTime(row["departure_time"]);
 
-            if (cmbSchedule.Items.Count > 0) cmbSchedule.SelectedIndex = 0;
+                    string displayText = $"{routeNumber} {departureCity}-{arrivalCity} ({departureTime:dd.MM.yyyy HH:mm})";
+                    string key = $"{scheduleId}|{displayText}";
+
+                    cmbSchedule.Items.Add(key);
+                    scheduleDictionary[key] = scheduleId;
+                }
+
+                if (cmbSchedule.Items.Count > 0) cmbSchedule.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка загрузки расписания: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void LoadTicketData(int id, string ticketNumber, string schedule,
@@ -60,7 +83,17 @@ namespace База_Данных_Городских_Автобусов
         {
             txtId.Text = id.ToString();
             txtTicketNumber.Text = ticketNumber;
-            cmbSchedule.Text = schedule;
+
+            // Ищем соответствующее расписание в словаре
+            foreach (string key in scheduleDictionary.Keys)
+            {
+                if (key.Contains(schedule))
+                {
+                    cmbSchedule.Text = key;
+                    break;
+                }
+            }
+
             txtPassengerName.Text = passengerName;
             txtSeatNumber.Text = seatNumber.ToString();
             txtPrice.Text = price.ToString("0.00");
@@ -73,7 +106,27 @@ namespace База_Данных_Городских_Автобусов
             if (ValidateInput())
             {
                 TicketNumber = txtTicketNumber.Text.Trim();
-                Schedule = cmbSchedule.Text;
+
+                // Извлекаем ID расписания из выбранного значения
+                if (cmbSchedule.SelectedItem != null && scheduleDictionary.ContainsKey(cmbSchedule.SelectedItem.ToString()))
+                {
+                    SelectedScheduleId = scheduleDictionary[cmbSchedule.SelectedItem.ToString()];
+                    Schedule = cmbSchedule.SelectedItem.ToString().Split('|')[1]; // Только текст для отображения
+                }
+                else if (!string.IsNullOrEmpty(cmbSchedule.Text))
+                {
+                    // Пытаемся найти ID по тексту
+                    foreach (var kvp in scheduleDictionary)
+                    {
+                        if (kvp.Key.Contains(cmbSchedule.Text))
+                        {
+                            SelectedScheduleId = kvp.Value;
+                            Schedule = cmbSchedule.Text;
+                            break;
+                        }
+                    }
+                }
+
                 PassengerName = txtPassengerName.Text.Trim();
                 SeatNumber = string.IsNullOrEmpty(txtSeatNumber.Text) ? 0 : int.Parse(txtSeatNumber.Text);
                 Price = decimal.Parse(txtPrice.Text);
@@ -94,6 +147,13 @@ namespace База_Данных_Городских_Автобусов
                 return false;
             }
 
+            if (string.IsNullOrWhiteSpace(txtTicketNumber.Text))
+            {
+                MessageBox.Show("Введите номер билета", "Ошибка");
+                txtTicketNumber.Focus();
+                return false;
+            }
+
             if (string.IsNullOrWhiteSpace(txtPrice.Text))
             {
                 MessageBox.Show("Введите цену", "Ошибка");
@@ -108,19 +168,29 @@ namespace База_Данных_Городских_Автобусов
                 return false;
             }
 
-            if (!string.IsNullOrEmpty(txtSeatNumber.Text))
+            if (string.IsNullOrWhiteSpace(txtSeatNumber.Text))
             {
-                if (!int.TryParse(txtSeatNumber.Text, out int seat) || seat < 0)
-                {
-                    MessageBox.Show("Введите корректный номер места (положительное число)", "Ошибка");
-                    txtSeatNumber.Focus();
-                    return false;
-                }
+                MessageBox.Show("Введите номер места", "Ошибка");
+                txtSeatNumber.Focus();
+                return false;
+            }
+
+            if (!int.TryParse(txtSeatNumber.Text, out int seat) || seat <= 0)
+            {
+                MessageBox.Show("Введите корректный номер места (положительное число)", "Ошибка");
+                txtSeatNumber.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtPassengerName.Text))
+            {
+                MessageBox.Show("Введите ФИО пассажира", "Ошибка");
+                txtPassengerName.Focus();
+                return false;
             }
 
             return true;
         }
-
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {

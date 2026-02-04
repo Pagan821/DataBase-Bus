@@ -65,6 +65,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainDatabaseForm));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageRoutes = new System.Windows.Forms.TabPage();
             this.dataGridViewRoutes = new System.Windows.Forms.DataGridView();
@@ -770,7 +771,7 @@
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(80, 30);
             this.btnBack.TabIndex = 1;
-            this.btnBack.Text = "Назад";
+            this.btnBack.Text = "Выход";
             this.btnBack.UseVisualStyleBackColor = false;
             // 
             // labelTitle
@@ -792,6 +793,7 @@
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.panelHeader);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(916, 639);
             this.Name = "MainDatabaseForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

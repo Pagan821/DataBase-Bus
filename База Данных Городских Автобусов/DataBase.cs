@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using System.Data.SQLite;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,30 +11,12 @@ using System.Windows.Forms;
 
 namespace База_Данных_Городских_Автобусов
 {
-    /// <summary>
-    /// Основной класс для работы с базой данных системы управления городскими автобусами.
-    /// Предоставляет методы для создания таблиц, CRUD-операций и управления данными.
-    /// </summary>
     internal class DataBase
     {
-        /// <summary>
-        /// Строка подключения к базе данных SQLite.
-        /// </summary>
         static string connectionString = "Data Source=City-Bus.db";
 
         // ==================== CREATE ====================
 
-        /// <summary>
-        /// Создает все таблицы базы данных в правильном порядке.
-        /// </summary>
-        /// <remarks>
-        /// Метод создает таблицы в следующем порядке:
-        /// 1. Users (Пользователи)
-        /// 2. Routes (Маршруты)
-        /// 3. Buses (Автобусы)
-        /// 4. Schedule (Расписание)
-        /// 5. Tickets (Билеты)
-        /// </remarks>
         public static void CreateAllTables()
         {
             CreateTableUsers();
@@ -44,17 +26,13 @@ namespace База_Данных_Городских_Автобусов
             CreateTableTickets();
         }
 
-        /// <summary>
-        /// Создает таблицу пользователей системы.
-        /// </summary>
-        /// <exception cref="Exception">Выбрасывается при ошибке создания таблицы.</exception>
         private static void CreateTableUsers()
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = @"CREATE TABLE IF NOT EXISTS Users (
                                    user_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
@@ -79,17 +57,13 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Создает таблицу маршрутов автобусов.
-        /// </summary>
-        /// <exception cref="Exception">Выбрасывается при ошибке создания таблицы.</exception>
         private static void CreateTableRoutes()
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = @"
                     CREATE TABLE IF NOT EXISTS Routes (
@@ -117,17 +91,13 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Создает таблицу автобусов транспортного предприятия.
-        /// </summary>
-        /// <exception cref="Exception">Выбрасывается при ошибке создания таблицы.</exception>
         private static void CreateTableBuses()
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = @"
                     CREATE TABLE IF NOT EXISTS Buses (
@@ -155,20 +125,13 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Создает таблицу расписания рейсов.
-        /// </summary>
-        /// <remarks>
-        /// Таблица содержит связи с таблицами Routes и Buses через внешние ключи.
-        /// </remarks>
-        /// <exception cref="Exception">Выбрасывается при ошибке создания таблицы.</exception>
         private static void CreateTableSchedule()
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = @"
                     CREATE TABLE IF NOT EXISTS Schedule (
@@ -199,21 +162,13 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Создает таблицу проданных билетов.
-        /// </summary>
-        /// <remarks>
-        /// Таблица содержит уникальное ограничение на комбинацию schedule_id и seat_number,
-        /// что предотвращает продажу одного места дважды.
-        /// </remarks>
-        /// <exception cref="Exception">Выбрасывается при ошибке создания таблицы.</exception>
         private static void CreateTableTickets()
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = @"
                     CREATE TABLE IF NOT EXISTS Tickets (
@@ -246,24 +201,17 @@ namespace База_Данных_Городских_Автобусов
 
         // ==================== SELECT ====================
 
-        /// <summary>
-        /// Получает всех пользователей системы.
-        /// </summary>
-        /// <returns>DataTable со всеми пользователями, отсортированными по ID.</returns>
-        /// <remarks>
-        /// Возвращает все поля таблицы Users в виде DataTable.
-        /// </remarks>
         public static DataTable GetAllUsers()
         {
             DataTable dt = new DataTable();
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
 
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand("SELECT * FROM Users ORDER BY user_id", conn);
+                SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM Users ORDER BY user_id", conn);
 
-                using (SqliteDataReader reader = cmd.ExecuteReader())
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {
                     for (int i = 0; i < reader.FieldCount; i++)
                     {
@@ -294,21 +242,17 @@ namespace База_Данных_Городских_Автобусов
             return dt;
         }
 
-        /// <summary>
-        /// Получает все маршруты из базы данных.
-        /// </summary>
-        /// <returns>DataTable со всеми маршрутами, отсортированными по ID.</returns>
         public static DataTable GetAllRoutes()
         {
             DataTable dt = new DataTable();
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
 
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand("SELECT * FROM Routes ORDER BY route_id", conn);
+                SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM Routes ORDER BY route_id", conn);
 
-                using (SqliteDataReader reader = cmd.ExecuteReader())
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {
                     for (int i = 0; i < reader.FieldCount; i++)
                     {
@@ -339,21 +283,17 @@ namespace База_Данных_Городских_Автобусов
             return dt;
         }
 
-        /// <summary>
-        /// Получает все автобусы транспортного парка.
-        /// </summary>
-        /// <returns>DataTable со всеми автобусами, отсортированными по ID.</returns>
         public static DataTable GetAllBuses()
         {
             DataTable dt = new DataTable();
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
 
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand("SELECT * FROM Buses ORDER BY bus_id", conn);
+                SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM Buses ORDER BY bus_id", conn);
 
-                using (SqliteDataReader reader = cmd.ExecuteReader())
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {
                     for (int i = 0; i < reader.FieldCount; i++)
                     {
@@ -384,22 +324,15 @@ namespace База_Данных_Городских_Автобусов
             return dt;
         }
 
-        /// <summary>
-        /// Получает полное расписание рейсов с информацией о маршрутах и автобусах.
-        /// </summary>
-        /// <returns>DataTable с расписанием, отсортированным по времени отправления.</returns>
-        /// <remarks>
-        /// Выполняет JOIN трех таблиц: Schedule, Routes и Buses.
-        /// </remarks>
         public static DataTable GetAllSchedules()
         {
             DataTable dt = new DataTable();
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
 
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand(
+                SQLiteCommand cmd = new SQLiteCommand(
                     @"SELECT s.*, r.route_number, r.departure_city, r.arrival_city, 
                     b.plate_number, b.brand, b.model 
                     FROM Schedule s 
@@ -407,7 +340,7 @@ namespace База_Данных_Городских_Автобусов
                     JOIN Buses b ON s.bus_id = b.bus_id 
                     ORDER BY s.departure_time", conn);
 
-                using (SqliteDataReader reader = cmd.ExecuteReader())
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {
                     for (int i = 0; i < reader.FieldCount; i++)
                     {
@@ -438,26 +371,22 @@ namespace База_Данных_Городских_Автобусов
             return dt;
         }
 
-        /// <summary>
-        /// Получает все проданные билеты с информацией о рейсах.
-        /// </summary>
-        /// <returns>DataTable с билетами, отсортированными по дате продажи (новые сверху).</returns>
         public static DataTable GetAllTickets()
         {
             DataTable dt = new DataTable();
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
 
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand(
+                SQLiteCommand cmd = new SQLiteCommand(
                     @"SELECT t.*, s.departure_time, r.route_number, r.departure_city, r.arrival_city 
                     FROM Tickets t 
                     JOIN Schedule s ON t.schedule_id = s.schedule_id 
                     JOIN Routes r ON s.route_id = r.route_id 
                     ORDER BY t.sale_date DESC", conn);
 
-                using (SqliteDataReader reader = cmd.ExecuteReader())
+                using (SQLiteDataReader reader = cmd.ExecuteReader())
                 {
                     for (int i = 0; i < reader.FieldCount; i++)
                     {
@@ -488,72 +417,398 @@ namespace База_Данных_Городских_Автобусов
             return dt;
         }
 
-        /// <summary>
-        /// Получает пользователя по его уникальному идентификатору.
-        /// </summary>
-        /// <param name="userId">ID пользователя для поиска.</param>
-        /// <returns>DataRow с данными пользователя или null, если пользователь не найден.</returns>
-        public static DataRow GetUserById(int userId)
-        {
-            DataTable dt = new DataTable();
-            SqliteConnection conn = new SqliteConnection(connectionString);
+        // ==================== ПРОВЕРКИ СУЩЕСТВОВАНИЯ (НОВЫЕ МЕТОДЫ) ====================
 
+        /// <summary>
+        /// Проверяет, существует ли уже такой маршрут
+        /// </summary>
+        public static bool CheckRouteExists(string routeNumber, string departure, string arrival, int excludeId = 0)
+        {
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand("SELECT * FROM Users WHERE user_id = @userId", conn);
-                cmd.Parameters.AddWithValue("@userId", userId);
+                string query = @"SELECT COUNT(*) FROM Routes 
+                               WHERE route_number = @routeNumber 
+                               AND departure_city = @departure 
+                               AND arrival_city = @arrival";
 
-                using (SqliteDataReader reader = cmd.ExecuteReader())
+                if (excludeId > 0)
                 {
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        dt.Columns.Add(reader.GetName(i));
-                    }
-
-                    if (reader.Read())
-                    {
-                        DataRow row = dt.NewRow();
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            row[i] = reader.GetValue(i);
-                        }
-                        dt.Rows.Add(row);
-                        return dt.Rows[0];
-                    }
+                    query += " AND route_id != @excludeId";
                 }
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conn);
+                cmd.Parameters.AddWithValue("@routeNumber", routeNumber);
+                cmd.Parameters.AddWithValue("@departure", departure);
+                cmd.Parameters.AddWithValue("@arrival", arrival);
+
+                if (excludeId > 0)
+                {
+                    cmd.Parameters.AddWithValue("@excludeId", excludeId);
+                }
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка поиска пользователя: {ex.Message}", "Ошибка",
+                MessageBox.Show($"Ошибка проверки маршрута: {ex.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
             finally
             {
                 if (conn.State == ConnectionState.Open)
                     conn.Close();
             }
-            return null;
+        }
+
+        /// <summary>
+        /// Проверяет, существует ли уже такой автобус
+        /// </summary>
+        public static bool CheckBusExists(string plateNumber, int excludeId = 0)
+        {
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
+            try
+            {
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM Buses WHERE plate_number = @plateNumber";
+
+                if (excludeId > 0)
+                {
+                    query += " AND bus_id != @excludeId";
+                }
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conn);
+                cmd.Parameters.AddWithValue("@plateNumber", plateNumber);
+
+                if (excludeId > 0)
+                {
+                    cmd.Parameters.AddWithValue("@excludeId", excludeId);
+                }
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка проверки автобуса: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// Проверяет, существует ли уже такой рейс
+        /// </summary>
+        public static bool CheckScheduleExists(int routeId, int busId, DateTime departureTime, int excludeId = 0)
+        {
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
+            try
+            {
+                conn.Open();
+                string query = @"SELECT COUNT(*) FROM Schedule 
+                               WHERE route_id = @routeId 
+                               AND bus_id = @busId 
+                               AND departure_time = @departureTime";
+
+                if (excludeId > 0)
+                {
+                    query += " AND schedule_id != @excludeId";
+                }
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conn);
+                cmd.Parameters.AddWithValue("@routeId", routeId);
+                cmd.Parameters.AddWithValue("@busId", busId);
+                cmd.Parameters.AddWithValue("@departureTime", departureTime);
+
+                if (excludeId > 0)
+                {
+                    cmd.Parameters.AddWithValue("@excludeId", excludeId);
+                }
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка проверки рейса: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// Проверяет, существует ли уже такой билет
+        /// </summary>
+        public static bool CheckTicketExists(string ticketNumber, int excludeId = 0)
+        {
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
+            try
+            {
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM Tickets WHERE ticket_number = @ticketNumber";
+
+                if (excludeId > 0)
+                {
+                    query += " AND ticket_id != @excludeId";
+                }
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conn);
+                cmd.Parameters.AddWithValue("@ticketNumber", ticketNumber);
+
+                if (excludeId > 0)
+                {
+                    cmd.Parameters.AddWithValue("@excludeId", excludeId);
+                }
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка проверки билета: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// Проверяет, существует ли уже такой пользователь
+        /// </summary>
+        public static bool CheckUserExists(string username, int excludeId = 0)
+        {
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
+            try
+            {
+                conn.Open();
+                string query = "SELECT COUNT(*) FROM Users WHERE username = @username";
+
+                if (excludeId > 0)
+                {
+                    query += " AND user_id != @excludeId";
+                }
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conn);
+                cmd.Parameters.AddWithValue("@username", username);
+
+                if (excludeId > 0)
+                {
+                    cmd.Parameters.AddWithValue("@excludeId", excludeId);
+                }
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка проверки пользователя: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// Проверяет, свободно ли место в рейсе
+        /// </summary>
+        public static bool CheckSeatAvailability(int scheduleId, int seatNumber, int excludeTicketId = 0)
+        {
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
+            try
+            {
+                conn.Open();
+                string query = @"SELECT COUNT(*) FROM Tickets 
+                               WHERE schedule_id = @scheduleId 
+                               AND seat_number = @seatNumber 
+                               AND is_returned = 0";
+
+                if (excludeTicketId > 0)
+                {
+                    query += " AND ticket_id != @excludeTicketId";
+                }
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conn);
+                cmd.Parameters.AddWithValue("@scheduleId", scheduleId);
+                cmd.Parameters.AddWithValue("@seatNumber", seatNumber);
+
+                if (excludeTicketId > 0)
+                {
+                    cmd.Parameters.AddWithValue("@excludeTicketId", excludeTicketId);
+                }
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count == 0; // Место свободно, если нет записей
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка проверки места: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
+
+        // ==================== ПРОВЕРКИ СВЯЗАННЫХ ЗАПИСЕЙ ====================
+
+        /// <summary>
+        /// Проверяет, есть ли у маршрута связанные записи (рейсы, билеты)
+        /// </summary>
+        public static bool CheckRouteHasRelatedRecords(int routeId)
+        {
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
+            try
+            {
+                conn.Open();
+
+                // Проверяем, есть ли рейсы с этим маршрутом
+                string query = @"SELECT COUNT(*) FROM Schedule WHERE route_id = @routeId";
+                SQLiteCommand cmd = new SQLiteCommand(query, conn);
+                cmd.Parameters.AddWithValue("@routeId", routeId);
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка проверки связанных записей маршрута: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// Проверяет, есть ли у автобуса связанные записи (рейсы)
+        /// </summary>
+        public static bool CheckBusHasRelatedRecords(int busId)
+        {
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
+            try
+            {
+                conn.Open();
+
+                // Проверяем, есть ли рейсы с этим автобусом
+                string query = @"SELECT COUNT(*) FROM Schedule WHERE bus_id = @busId";
+                SQLiteCommand cmd = new SQLiteCommand(query, conn);
+                cmd.Parameters.AddWithValue("@busId", busId);
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка проверки связанных записей автобуса: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// Проверяет, есть ли у рейса проданные билеты
+        /// </summary>
+        public static bool CheckScheduleHasTickets(int scheduleId)
+        {
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
+            try
+            {
+                conn.Open();
+
+                // Проверяем, есть ли билеты на этот рейс
+                string query = @"SELECT COUNT(*) FROM Tickets 
+                               WHERE schedule_id = @scheduleId 
+                               AND is_returned = 0";
+                SQLiteCommand cmd = new SQLiteCommand(query, conn);
+                cmd.Parameters.AddWithValue("@scheduleId", scheduleId);
+
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                return count > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка проверки билетов рейса: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// Получает хеш пароля пользователя по ID
+        /// </summary>
+        public static string GetUserPasswordHash(int userId)
+        {
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
+            try
+            {
+                conn.Open();
+
+                string query = "SELECT password_hash FROM Users WHERE user_id = @userId";
+                SQLiteCommand cmd = new SQLiteCommand(query, conn);
+                cmd.Parameters.AddWithValue("@userId", userId);
+
+                object result = cmd.ExecuteScalar();
+                return result != null ? result.ToString() : "";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка получения хеша пароля: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return "";
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
         }
 
         // ==================== INSERT ====================
 
-        /// <summary>
-        /// Добавляет нового пользователя в систему.
-        /// </summary>
-        /// <param name="username">Уникальное имя пользователя.</param>
-        /// <param name="passwordHash">Хеш пароля пользователя.</param>
-        /// <param name="fullName">Полное имя пользователя.</param>
-        /// <param name="role">Роль пользователя (Администратор, Диспетчер, Кассир).</param>
-        /// <param name="isActive">Статус активности пользователя.</param>
-        /// <returns>true если пользователь успешно добавлен, иначе false.</returns>
         public static bool InsertUser(string username, string passwordHash, string fullName, string role, bool isActive)
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = @"INSERT INTO Users (username, password_hash, full_name, role, is_active) 
                                   VALUES (@username, @passwordHash, @fullName, @role, @isActive)";
@@ -579,24 +834,14 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Добавляет новый маршрут в базу данных.
-        /// </summary>
-        /// <param name="routeNumber">Номер маршрута.</param>
-        /// <param name="departureCity">Город отправления.</param>
-        /// <param name="arrivalCity">Город прибытия.</param>
-        /// <param name="distance">Расстояние маршрута.</param>
-        /// <param name="durationMinutes">Продолжительность маршрута в минутах.</param>
-        /// <param name="isActive">Статус активности маршрута.</param>
-        /// <returns>true если маршрут успешно добавлен, иначе false.</returns>
         public static bool InsertRoute(string routeNumber, string departureCity, string arrivalCity,
                                        string distance, int durationMinutes, bool isActive)
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = @"INSERT INTO Routes (route_number, departure_city, arrival_city, 
                                   distance, duration_minutes, is_active) 
@@ -625,24 +870,14 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Добавляет новый автобус в транспортный парк.
-        /// </summary>
-        /// <param name="plateNumber">Государственный номер (уникальный).</param>
-        /// <param name="brand">Марка автобуса.</param>
-        /// <param name="model">Модель автобуса.</param>
-        /// <param name="capacity">Вместимость пассажиров.</param>
-        /// <param name="year">Год выпуска.</param>
-        /// <param name="isActive">Статус активности автобуса.</param>
-        /// <returns>true если автобус успешно добавлен, иначе false.</returns>
         public static bool InsertBus(string plateNumber, string brand, string model,
                                      int capacity, int year, bool isActive)
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = @"INSERT INTO Buses (plate_number, brand, model, capacity, year, is_active) 
                                   VALUES (@plateNumber, @brand, @model, @capacity, @year, @isActive)";
@@ -669,25 +904,14 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Добавляет новый рейс в расписание.
-        /// </summary>
-        /// <param name="routeId">ID маршрута.</param>
-        /// <param name="busId">ID автобуса.</param>
-        /// <param name="departureTime">Время отправления.</param>
-        /// <param name="arrivalTime">Время прибытия.</param>
-        /// <param name="price">Цена билета.</param>
-        /// <param name="status">Статус рейса (Планируется, Выполняется, Завершен, Отменен).</param>
-        /// <param name="availableSeats">Количество доступных мест.</param>
-        /// <returns>true если рейс успешно добавлен, иначе false.</returns>
         public static bool InsertSchedule(int routeId, int busId, DateTime departureTime,
                                           DateTime arrivalTime, decimal price, string status, int availableSeats)
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = @"INSERT INTO Schedule (route_id, bus_id, departure_time, arrival_time, 
                                   price, status, available_seats) 
@@ -717,25 +941,14 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Добавляет новый проданный билет.
-        /// </summary>
-        /// <param name="ticketNumber">Уникальный номер билета.</param>
-        /// <param name="scheduleId">ID рейса.</param>
-        /// <param name="passengerName">ФИО пассажира.</param>
-        /// <param name="seatNumber">Номер места.</param>
-        /// <param name="price">Цена билета.</param>
-        /// <param name="saleDate">Дата и время продажи.</param>
-        /// <param name="isReturned">Статус возврата билета.</param>
-        /// <returns>true если билет успешно добавлен, иначе false.</returns>
         public static bool InsertTicket(string ticketNumber, int scheduleId, string passengerName,
                                         int seatNumber, decimal price, DateTime saleDate, bool isReturned)
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = @"INSERT INTO Tickets (ticket_number, schedule_id, passenger_name, 
                                   seat_number, price, sale_date, is_returned) 
@@ -767,24 +980,14 @@ namespace База_Данных_Городских_Автобусов
 
         // ==================== UPDATE ====================
 
-        /// <summary>
-        /// Обновляет данные пользователя.
-        /// </summary>
-        /// <param name="userId">ID пользователя для обновления.</param>
-        /// <param name="username">Новое имя пользователя.</param>
-        /// <param name="passwordHash">Новый хеш пароля.</param>
-        /// <param name="fullName">Новое полное имя.</param>
-        /// <param name="role">Новая роль.</param>
-        /// <param name="isActive">Новый статус активности.</param>
-        /// <returns>true если обновление успешно, иначе false.</returns>
         public static bool UpdateUser(int userId, string username, string passwordHash,
                                      string fullName, string role, bool isActive)
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = @"UPDATE Users SET 
                                   username = @username, 
@@ -816,25 +1019,14 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Обновляет данные маршрута.
-        /// </summary>
-        /// <param name="routeId">ID маршрута для обновления.</param>
-        /// <param name="routeNumber">Новый номер маршрута.</param>
-        /// <param name="departureCity">Новый город отправления.</param>
-        /// <param name="arrivalCity">Новый город прибытия.</param>
-        /// <param name="distance">Новое расстояние.</param>
-        /// <param name="durationMinutes">Новая продолжительность в минутах.</param>
-        /// <param name="isActive">Новый статус активности.</param>
-        /// <returns>true если обновление успешно, иначе false.</returns>
         public static bool UpdateRoute(int routeId, string routeNumber, string departureCity,
                                        string arrivalCity, string distance, int durationMinutes, bool isActive)
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = @"UPDATE Routes SET 
                                   route_number = @routeNumber, 
@@ -868,25 +1060,14 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Обновляет данные автобуса.
-        /// </summary>
-        /// <param name="busId">ID автобуса для обновления.</param>
-        /// <param name="plateNumber">Новый госномер.</param>
-        /// <param name="brand">Новая марка.</param>
-        /// <param name="model">Новая модель.</param>
-        /// <param name="capacity">Новая вместимость.</param>
-        /// <param name="year">Новый год выпуска.</param>
-        /// <param name="isActive">Новый статус активности.</param>
-        /// <returns>true если обновление успешно, иначе false.</returns>
         public static bool UpdateBus(int busId, string plateNumber, string brand, string model,
                                      int capacity, int year, bool isActive)
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = @"UPDATE Buses SET 
                                   plate_number = @plateNumber, 
@@ -920,26 +1101,14 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Обновляет данные рейса в расписании.
-        /// </summary>
-        /// <param name="scheduleId">ID рейса для обновления.</param>
-        /// <param name="routeId">Новый ID маршрута.</param>
-        /// <param name="busId">Новый ID автобуса.</param>
-        /// <param name="departureTime">Новое время отправления.</param>
-        /// <param name="arrivalTime">Новое время прибытия.</param>
-        /// <param name="price">Новая цена.</param>
-        /// <param name="status">Новый статус.</param>
-        /// <param name="availableSeats">Новое количество доступных мест.</param>
-        /// <returns>true если обновление успешно, иначе false.</returns>
         public static bool UpdateSchedule(int scheduleId, int routeId, int busId, DateTime departureTime,
                                           DateTime arrivalTime, decimal price, string status, int availableSeats)
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = @"UPDATE Schedule SET 
                                   route_id = @routeId, 
@@ -975,26 +1144,14 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Обновляет данные билета.
-        /// </summary>
-        /// <param name="ticketId">ID билета для обновления.</param>
-        /// <param name="ticketNumber">Новый номер билета.</param>
-        /// <param name="scheduleId">Новый ID рейса.</param>
-        /// <param name="passengerName">Новое ФИО пассажира.</param>
-        /// <param name="seatNumber">Новый номер места.</param>
-        /// <param name="price">Новая цена.</param>
-        /// <param name="saleDate">Новая дата продажи.</param>
-        /// <param name="isReturned">Новый статус возврата.</param>
-        /// <returns>true если обновление успешно, иначе false.</returns>
         public static bool UpdateTicket(int ticketId, string ticketNumber, int scheduleId, string passengerName,
                                         int seatNumber, decimal price, DateTime saleDate, bool isReturned)
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = @"UPDATE Tickets SET 
                                   ticket_number = @ticketNumber, 
@@ -1032,18 +1189,13 @@ namespace База_Данных_Городских_Автобусов
 
         // ==================== DELETE ====================
 
-        /// <summary>
-        /// Удаляет пользователя по ID.
-        /// </summary>
-        /// <param name="userId">ID пользователя для удаления.</param>
-        /// <returns>true если удаление успешно, иначе false.</returns>
         public static bool DeleteUser(int userId)
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand("DELETE FROM Users WHERE user_id = @userId", conn);
+                SQLiteCommand cmd = new SQLiteCommand("DELETE FROM Users WHERE user_id = @userId", conn);
                 cmd.Parameters.AddWithValue("@userId", userId);
 
                 int result = cmd.ExecuteNonQuery();
@@ -1062,18 +1214,13 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Удаляет маршрут по ID.
-        /// </summary>
-        /// <param name="routeId">ID маршрута для удаления.</param>
-        /// <returns>true если удаление успешно, иначе false.</returns>
         public static bool DeleteRoute(int routeId)
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand("DELETE FROM Routes WHERE route_id = @routeId", conn);
+                SQLiteCommand cmd = new SQLiteCommand("DELETE FROM Routes WHERE route_id = @routeId", conn);
                 cmd.Parameters.AddWithValue("@routeId", routeId);
 
                 int result = cmd.ExecuteNonQuery();
@@ -1092,18 +1239,13 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Удаляет автобус по ID.
-        /// </summary>
-        /// <param name="busId">ID автобуса для удаления.</param>
-        /// <returns>true если удаление успешно, иначе false.</returns>
         public static bool DeleteBus(int busId)
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand("DELETE FROM Buses WHERE bus_id = @busId", conn);
+                SQLiteCommand cmd = new SQLiteCommand("DELETE FROM Buses WHERE bus_id = @busId", conn);
                 cmd.Parameters.AddWithValue("@busId", busId);
 
                 int result = cmd.ExecuteNonQuery();
@@ -1122,18 +1264,13 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Удаляет рейс из расписания по ID.
-        /// </summary>
-        /// <param name="scheduleId">ID рейса для удаления.</param>
-        /// <returns>true если удаление успешно, иначе false.</returns>
         public static bool DeleteSchedule(int scheduleId)
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand("DELETE FROM Schedule WHERE schedule_id = @scheduleId", conn);
+                SQLiteCommand cmd = new SQLiteCommand("DELETE FROM Schedule WHERE schedule_id = @scheduleId", conn);
                 cmd.Parameters.AddWithValue("@scheduleId", scheduleId);
 
                 int result = cmd.ExecuteNonQuery();
@@ -1152,18 +1289,13 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Удаляет билет по ID.
-        /// </summary>
-        /// <param name="ticketId">ID билета для удаления.</param>
-        /// <returns>true если удаление успешно, иначе false.</returns>
         public static bool DeleteTicket(int ticketId)
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand("DELETE FROM Tickets WHERE ticket_id = @ticketId", conn);
+                SQLiteCommand cmd = new SQLiteCommand("DELETE FROM Tickets WHERE ticket_id = @ticketId", conn);
                 cmd.Parameters.AddWithValue("@ticketId", ticketId);
 
                 int result = cmd.ExecuteNonQuery();
@@ -1184,47 +1316,36 @@ namespace База_Данных_Городских_Автобусов
 
         // ==================== ДОПОЛНИТЕЛЬНЫЕ МЕТОДЫ ====================
 
-        /// <summary>
-        /// Создает индексы для оптимизации работы базы данных.
-        /// </summary>
-        /// <remarks>
-        /// Создает индексы для часто используемых полей всех таблиц.
-        /// </remarks>
         public static void CreateIndexes()
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
                 cmd.Connection = conn;
 
-                // Индексы для таблицы Routes
                 cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_routes_number ON Routes(route_number)";
                 cmd.ExecuteNonQuery();
 
                 cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_routes_active ON Routes(is_active)";
                 cmd.ExecuteNonQuery();
 
-                // Индексы для таблицы Buses
                 cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_buses_plate ON Buses(plate_number)";
                 cmd.ExecuteNonQuery();
 
-                // Индексы для таблицы Users
                 cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_users_username ON Users(username)";
                 cmd.ExecuteNonQuery();
 
                 cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_users_role ON Users(role)";
                 cmd.ExecuteNonQuery();
 
-                // Индексы для таблицы Schedule
                 cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_schedule_dates ON Schedule(departure_time, arrival_time)";
                 cmd.ExecuteNonQuery();
 
                 cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_schedule_status ON Schedule(status)";
                 cmd.ExecuteNonQuery();
 
-                // Индексы для таблицы Tickets
                 cmd.CommandText = "CREATE INDEX IF NOT EXISTS idx_tickets_number ON Tickets(ticket_number)";
                 cmd.ExecuteNonQuery();
 
@@ -1249,22 +1370,16 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Вставляет тестовые данные в базу данных.
-        /// </summary>
-        /// <remarks>
-        /// Добавляет тестовые маршруты, автобусы, пользователей, расписание и билеты.
-        /// Используется для первоначального заполнения базы данных или тестирования.
-        /// </remarks>
         public static void InsertTestData()
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand();
+                SQLiteCommand cmd = new SQLiteCommand();
                 cmd.Connection = conn;
 
+                // Используем INSERT OR IGNORE, чтобы избежать дубликатов
                 // Тестовые маршруты
                 cmd.CommandText = @"
                     INSERT OR IGNORE INTO Routes (route_number, departure_city, arrival_city, distance, duration_minutes, is_active) VALUES
@@ -1323,22 +1438,13 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Проверяет корректность логина и пароля пользователя.
-        /// </summary>
-        /// <param name="username">Имя пользователя.</param>
-        /// <param name="passwordHash">Хеш пароля для проверки.</param>
-        /// <returns>true если логин и пароль корректны и пользователь активен, иначе false.</returns>
-        /// <remarks>
-        /// Метод проверяет наличие активного пользователя с указанными именем и хешем пароля.
-        /// </remarks>
         public static bool CheckLogin(string username, string passwordHash)
         {
-            SqliteConnection conn = new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
             try
             {
                 conn.Open();
-                SqliteCommand cmd = new SqliteCommand(
+                SQLiteCommand cmd = new SQLiteCommand(
                     "SELECT COUNT(*) FROM Users WHERE username = @username AND password_hash = @passwordHash AND is_active = 1",
                     conn);
                 cmd.Parameters.AddWithValue("@username", username);
@@ -1360,15 +1466,6 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Создает SHA256 хеш пароля.
-        /// </summary>
-        /// <param name="password">Пароль для хеширования.</param>
-        /// <returns>Хеш пароля в виде шестнадцатеричной строки.</returns>
-        /// <remarks>
-        /// Использует алгоритм SHA256 для создания безопасного хеша пароля.
-        /// Все хеши приводятся к нижнему регистру для единообразия.
-        /// </remarks>
         public static string HashPassword(string password)
         {
             using (var sha256 = System.Security.Cryptography.SHA256.Create())
@@ -1385,12 +1482,6 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
-        /// <summary>
-        /// Инициализирует базу данных: создает файл, таблицы, индексы и тестовые данные.
-        /// </summary>
-        /// <remarks>
-        /// Полный процесс инициализации базы данных при первом запуске приложения.
-        /// </remarks>
         public static void InitializeDatabase()
         {
             try
@@ -1401,7 +1492,7 @@ namespace База_Данных_Городских_Автобусов
                 {
                     File.WriteAllBytes(dbPath, new byte[0]);
 
-                    using (var conn = new SqliteConnection(connectionString))
+                    using (var conn = new SQLiteConnection(connectionString))
                     {
                         conn.Open();
                     }
@@ -1411,7 +1502,11 @@ namespace База_Данных_Городских_Автобусов
 
                 CreateIndexes();
 
-                InsertTestData();
+                // Проверяем, есть ли уже данные, чтобы не добавлять тестовые каждый раз
+                if (IsDatabaseEmpty())
+                {
+                    InsertTestData();
+                }
 
                 MessageBox.Show("База данных успешно инициализирована!", "Готово",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1423,16 +1518,50 @@ namespace База_Данных_Городских_Автобусов
             }
         }
 
+
+
+
         /// <summary>
-        /// Создает и возвращает новое соединение с базой данных.
+        /// Проверяет, пустая ли база данных
         /// </summary>
-        /// <returns>Новое соединение SqliteConnection.</returns>
-        /// <remarks>
-        /// Используется для ручного управления соединениями в особых случаях.
-        /// </remarks>
-        public static SqliteConnection GetConnection()
+        private static bool IsDatabaseEmpty()
         {
-            return new SqliteConnection(connectionString);
+            SQLiteConnection conn = new SQLiteConnection(connectionString);
+            try
+            {
+                conn.Open();
+
+                // Проверяем все таблицы на наличие данных
+                string query = @"
+                    SELECT (
+                        (SELECT COUNT(*) FROM Users) +
+                        (SELECT COUNT(*) FROM Routes) +
+                        (SELECT COUNT(*) FROM Buses) +
+                        (SELECT COUNT(*) FROM Schedule) +
+                        (SELECT COUNT(*) FROM Tickets)
+                    ) as total_count";
+
+                SQLiteCommand cmd = new SQLiteCommand(query, conn);
+                int totalCount = Convert.ToInt32(cmd.ExecuteScalar());
+
+                return totalCount == 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка проверки базы данных: {ex.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true; // Если ошибка, считаем что база пустая
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
+
+        public static SQLiteConnection GetConnection()
+        {
+            return new SQLiteConnection(connectionString);
         }
     }
 }
